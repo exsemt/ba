@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Day:</b>
+  <%= @star_date.day %>
+</p>
+
+<p>
+  <b>Month:</b>
+  <%= @star_date.month %>
+</p>
+
+<p>
+  <b>Quarter:</b>
+  <%= @star_date.quarter %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @star_date.year %>
+</p>
+
+
+<%= link_to 'Edit', edit_star_date_path(@star_date) %> |
+<%= link_to 'Back', star_dates_path %>

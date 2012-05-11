@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Customer:</b>
+  <%= @star_fact.customer_id %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%= @star_fact.product_id %>
+</p>
+
+<p>
+  <b>Branch:</b>
+  <%= @star_fact.branch_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @star_fact.date_id %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @star_fact.number %>
+</p>
+
+<p>
+  <b>Discount:</b>
+  <%= @star_fact.discount %>
+</p>
+
+<p>
+  <b>Commission:</b>
+  <%= @star_fact.commission %>
+</p>
+
+
+<%= link_to 'Edit', edit_star_fact_path(@star_fact) %> |
+<%= link_to 'Back', star_facts_path %>

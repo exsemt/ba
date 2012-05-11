@@ -1,0 +1,35 @@
+<h1>Listing star_facts</h1>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <th>Product</th>
+    <th>Branch</th>
+    <th>Date</th>
+    <th>Number</th>
+    <th>Discount</th>
+    <th>Commission</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @star_facts.each do |star_fact| %>
+  <tr>
+    <td><%= star_fact.customer_id %></td>
+    <td><%= star_fact.product_id %></td>
+    <td><%= star_fact.branch_id %></td>
+    <td><%= star_fact.date_id %></td>
+    <td><%= star_fact.number %></td>
+    <td><%= star_fact.discount %></td>
+    <td><%= star_fact.commission %></td>
+    <td><%= link_to 'Show', star_fact %></td>
+    <td><%= link_to 'Edit', edit_star_fact_path(star_fact) %></td>
+    <td><%= link_to 'Destroy', star_fact, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Fact', new_star_fact_path %>

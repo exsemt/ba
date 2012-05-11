@@ -1,0 +1,2 @@
+module Star::FactsHelper
+end

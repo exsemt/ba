@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Data Warehouse | <%= yield(:title).present? ? yield(:title) : 'Title' %></title>
+    <%= stylesheet_link_tag    'application', :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <%= link_to('Data Warehouse', root_path, :class => 'brand') %>
+          <ul class="nav">
+            <li class="<%= "active" if current_controller?('/$') %>"><%= link_to('Home', root_path) %></li>
+            <li class="<%= "active" if current_controller?('/star/') %>"><%= link_to('Star Schema', star_facts_path) %></li>
+            <!--<li class="<%#= "active" if current_controller?('/generic/manage/') %>"><%#= link_to 'Generisches Modell', generic_manage_facts_url %></li>-->
+            <!--<li class="<%#= "active" if current_controller?('/generic/[^(manage)]') %>"><%#= link_to 'Generische Tabellen', generic_tables_url %></li>-->
+            <!--<li class="<%#= "active" if current_controller?('/generate_data') %>"><%#= link_to 'Generate Data', generate_data_path %></li>-->
+            <!--<li class="<%#= "active" if current_controller?('/page_request') %>"><%#= link_to 'Page Requests', page_requests_path %></li>-->
+            <!--<li class="<%#= "active" if current_controller?('/sql_request') %>"><%#= link_to 'SQL Requests', sql_requests_path %></li>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="hero-unit">
+        <h1>Data Warehouse</h1>
+        <p class="lead">Bachelorarbeit: Vergleich des Star-Schemas und des generischen Modells mit Hilfe des Ruby on Rails Frameworks</p>
+      </div>
+
+      <%# if self.controller.class.to_s.include?('Star') %>
+        <%#= render '/star/overview' %>
+      <%# elsif self.controller.class.to_s.include?('Generic') && self.controller.class.to_s.include?('Table') %>
+        <%#= render '/generic/tables_overview' %>
+      <%# elsif self.controller.class.to_s.include?('Manage') %>
+        <%#= render '/generic/manage/overview' %>
+      <%# end %>
+
+      <%= yield %>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Bachelor 2012</p>
+      </footer>
+    </div>
+  </body>
+</html>

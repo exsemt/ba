@@ -1,0 +1,31 @@
+<h1>Listing star_branches</h1>
+
+<table>
+  <tr>
+    <th>Branch no</th>
+    <th>State</th>
+    <th>City</th>
+    <th>Postcode</th>
+    <th>Street number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @star_branches.each do |star_branch| %>
+  <tr>
+    <td><%= star_branch.branch_no %></td>
+    <td><%= star_branch.state %></td>
+    <td><%= star_branch.city %></td>
+    <td><%= star_branch.postcode %></td>
+    <td><%= star_branch.street_number %></td>
+    <td><%= link_to 'Show', star_branch %></td>
+    <td><%= link_to 'Edit', edit_star_branch_path(star_branch) %></td>
+    <td><%= link_to 'Destroy', star_branch, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Branch', new_star_branch_path %>

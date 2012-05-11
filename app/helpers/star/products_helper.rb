@@ -1,0 +1,2 @@
+module Star::ProductsHelper
+end

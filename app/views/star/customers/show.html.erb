@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Customer no:</b>
+  <%= @star_customer.customer_no %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @star_customer.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @star_customer.type %>
+</p>
+
+<p>
+  <b>Street number:</b>
+  <%= @star_customer.street_number %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @star_customer.city %>
+</p>
+
+<p>
+  <b>Postcode:</b>
+  <%= @star_customer.postcode %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @star_customer.country %>
+</p>
+
+
+<%= link_to 'Edit', edit_star_customer_path(@star_customer) %> |
+<%= link_to 'Back', star_customers_path %>

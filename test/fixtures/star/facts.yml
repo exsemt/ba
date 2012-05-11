@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  customer_id: 1
+  product_id: 1
+  branch_id: 1
+  date_id: 1
+  number: 1
+  discount: 1.5
+  commission: 1.5
+
+two:
+  customer_id: 1
+  product_id: 1
+  branch_id: 1
+  date_id: 1
+  number: 1
+  discount: 1.5
+  commission: 1.5

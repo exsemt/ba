@@ -1,0 +1,29 @@
+<h1>Listing star_dates</h1>
+
+<table>
+  <tr>
+    <th>Day</th>
+    <th>Month</th>
+    <th>Quarter</th>
+    <th>Year</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @star_dates.each do |star_date| %>
+  <tr>
+    <td><%= star_date.day %></td>
+    <td><%= star_date.month %></td>
+    <td><%= star_date.quarter %></td>
+    <td><%= star_date.year %></td>
+    <td><%= link_to 'Show', star_date %></td>
+    <td><%= link_to 'Edit', edit_star_date_path(star_date) %></td>
+    <td><%= link_to 'Destroy', star_date, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Date', new_star_date_path %>

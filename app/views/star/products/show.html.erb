@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Product no:</b>
+  <%= @star_product.product_no %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @star_product.name %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @star_product.category %>
+</p>
+
+<p>
+  <b>Brand:</b>
+  <%= @star_product.brand %>
+</p>
+
+<p>
+  <b>Contents:</b>
+  <%= @star_product.contents %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @star_product.price %>
+</p>
+
+
+<%= link_to 'Edit', edit_star_product_path(@star_product) %> |
+<%= link_to 'Back', star_products_path %>
