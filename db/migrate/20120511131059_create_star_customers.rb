@@ -3,7 +3,7 @@ class CreateStarCustomers < ActiveRecord::Migration
     create_table :star_customers do |t|
       t.integer :customer_no
       t.string :name
-      t.string :type
+      t.string :customer_type
       t.string :street_number
       t.string :city
       t.string :postcode

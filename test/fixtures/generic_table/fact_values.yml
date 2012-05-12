@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  group: 1
+  dimension_value_id: 1
+  value: MyString
+
+two:
+  group: 1
+  dimension_value_id: 1
+  value: MyString

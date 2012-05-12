@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Aggregation:</b>
+  <%= @generic_table_dimension_value.aggregation_id %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%= @generic_table_dimension_value.parent_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @generic_table_dimension_value.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_generic_table_dimension_value_path(@generic_table_dimension_value) %> |
+<%= link_to 'Back', generic_table_dimension_values_path %>

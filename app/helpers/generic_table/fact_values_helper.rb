@@ -1,0 +1,2 @@
+module GenericTable::FactValuesHelper
+end

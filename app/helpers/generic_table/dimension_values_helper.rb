@@ -1,0 +1,2 @@
+module GenericTable::DimensionValuesHelper
+end

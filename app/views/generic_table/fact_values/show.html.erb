@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Group:</b>
+  <%= @generic_table_fact_value.group %>
+</p>
+
+<p>
+  <b>Dimension value:</b>
+  <%= @generic_table_fact_value.dimension_value_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @generic_table_fact_value.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_generic_table_fact_value_path(@generic_table_fact_value) %> |
+<%= link_to 'Back', generic_table_fact_values_path %>

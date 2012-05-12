@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @generic_table_aggregation.name %>
+</p>
+
+<p>
+  <b>Dimension:</b>
+  <%= @generic_table_aggregation.dimension_id %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%= @generic_table_aggregation.parent_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_generic_table_aggregation_path(@generic_table_aggregation) %> |
+<%= link_to 'Back', generic_table_aggregations_path %>

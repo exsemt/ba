@@ -1,0 +1,27 @@
+<h1>Listing generic_table_dimension_values</h1>
+
+<table>
+  <tr>
+    <th>Aggregation</th>
+    <th>Parent</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @generic_table_dimension_values.each do |generic_table_dimension_value| %>
+  <tr>
+    <td><%= generic_table_dimension_value.aggregation_id %></td>
+    <td><%= generic_table_dimension_value.parent_id %></td>
+    <td><%= generic_table_dimension_value.value %></td>
+    <td><%= link_to 'Show', generic_table_dimension_value %></td>
+    <td><%= link_to 'Edit', edit_generic_table_dimension_value_path(generic_table_dimension_value) %></td>
+    <td><%= link_to 'Destroy', generic_table_dimension_value, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dimension value', new_generic_table_dimension_value_path %>

@@ -1,15 +1,24 @@
 Bachelor::Application.routes.draw do
 
-
   # Start page
-  root :to => "dashboard/index"
+  root :to => "dashboard#index"
+
+  # Generic Model
+  namespace :generic_table do
+    resources :fact_values
+    resources :dimension_values
+    resources :aggregations
+    resources :dimensions
+  end
 
   # Star-Schema
-  namespace :star do resources :facts end
-  namespace :star do resources :dates end
-  namespace :star do resources :branches end
-  namespace :star do resources :products end
-  namespace :star do resources :customers end
+  namespace :star do
+    resources :customers
+    resources :products
+    resources :branches
+    resources :dates
+    resources :facts
+  end
 
 
   ############################# INFO ###############################################

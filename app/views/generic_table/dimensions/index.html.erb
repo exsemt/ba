@@ -1,0 +1,23 @@
+<h1>Listing generic_table_dimensions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @generic_table_dimensions.each do |generic_table_dimension| %>
+  <tr>
+    <td><%= generic_table_dimension.name %></td>
+    <td><%= link_to 'Show', generic_table_dimension %></td>
+    <td><%= link_to 'Edit', edit_generic_table_dimension_path(generic_table_dimension) %></td>
+    <td><%= link_to 'Destroy', generic_table_dimension, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dimension', new_generic_table_dimension_path %>

@@ -25,7 +25,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: bachelor_test
+  database: test_bachelor_test
   pool: 5
   username: root
   password:

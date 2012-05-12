@@ -1,0 +1,29 @@
+<%= form_for(@generic_table_aggregation) do |f| %>
+  <% if @generic_table_aggregation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@generic_table_aggregation.errors.count, "error") %> prohibited this generic_table_aggregation from being saved:</h2>
+
+      <ul>
+      <% @generic_table_aggregation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :dimension_id %><br />
+    <%= f.number_field :dimension_id %>
+  </div>
+  <div class="field">
+    <%= f.label :parent_id %><br />
+    <%= f.number_field :parent_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
