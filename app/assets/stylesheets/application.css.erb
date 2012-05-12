@@ -8,6 +8,26 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require twitter/bootstrap
  *= require_self
  *= require_tree .
 */
+
+body {
+	background: url(<%= asset_path('header-background.jpg') %>) repeat-x left top;
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+div.hero-unit {
+    background-color: #F5F5F5;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 10px;
+}
