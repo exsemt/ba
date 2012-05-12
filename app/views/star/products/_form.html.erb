@@ -12,30 +12,31 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :product_no %><br />
+    <%= f.label :product_no %>
     <%= f.number_field :product_no %>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :category %><br />
+    <%= f.label :category %>
     <%= f.text_field :category %>
   </div>
   <div class="field">
-    <%= f.label :brand %><br />
+    <%= f.label :brand %>
     <%= f.text_field :brand %>
   </div>
   <div class="field">
-    <%= f.label :contents %><br />
+    <%= f.label :contents %>
     <%= f.text_field :contents %>
   </div>
   <div class="field">
-    <%= f.label :price %><br />
+    <%= f.label :price %>
     <%= f.text_field :price %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', star_products_path, :class => 'btn' %>
+    <%= f.submit("Save", :class => 'btn btn-primary') %>
   </div>
 <% end %>

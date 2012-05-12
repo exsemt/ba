@@ -1,6 +1,11 @@
-<h1>Editing star_branch</h1>
+<%= content_for :title, 'Star > Branch' %>
+
+<div class="page-header">
+  <h2>
+    Star-Schema: Editing branch
+  </h2>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @star_branch %> |
-<%= link_to 'Back', star_branches_path %>
+<%= link_to 'Show', @star_branch, :class => "btn" %>

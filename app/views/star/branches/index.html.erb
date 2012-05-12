@@ -1,15 +1,20 @@
-<h1>Listing star_branches</h1>
+<%= content_for :title, 'Star > Branches' %>
 
-<table>
+<div class="page-header">
+  <h2>
+    Star-Schema: Branches table
+    <%= link_to('New branch', new_star_branch_path, :class => 'btn btn-small pull-right') %>
+  </h2>
+</div>
+
+<table class="table table-bordered table-striped">
   <tr>
     <th>Branch no</th>
     <th>State</th>
     <th>City</th>
     <th>Postcode</th>
     <th>Street number</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Aktion</th>
   </tr>
 
 <% @star_branches.each do |star_branch| %>
@@ -19,13 +24,11 @@
     <td><%= star_branch.city %></td>
     <td><%= star_branch.postcode %></td>
     <td><%= star_branch.street_number %></td>
-    <td><%= link_to 'Show', star_branch %></td>
-    <td><%= link_to 'Edit', edit_star_branch_path(star_branch) %></td>
-    <td><%= link_to 'Destroy', star_branch, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', star_branch, :class => 'btn' %>
+      <%= link_to 'Edit', edit_star_branch_path(star_branch), :class => 'btn' %>
+      <%= link_to 'Destroy', star_branch, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+    </td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Branch', new_star_branch_path %>

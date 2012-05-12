@@ -1,6 +1,14 @@
-<h1>Listing star_products</h1>
+<%= content_for :title, 'Star > Products' %>
 
-<table>
+<div class="page-header">
+  <h2>
+    Star-Schema: Products table
+    <%= link_to('New product', new_star_product_path, :class => 'btn btn-small pull-right') %>
+  </h2>
+</div>
+
+
+<table class="table table-bordered table-striped">
   <tr>
     <th>Product no</th>
     <th>Name</th>
@@ -8,9 +16,7 @@
     <th>Brand</th>
     <th>Contents</th>
     <th>Price</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Action</th>
   </tr>
 
 <% @star_products.each do |star_product| %>
@@ -21,13 +27,11 @@
     <td><%= star_product.brand %></td>
     <td><%= star_product.contents %></td>
     <td><%= star_product.price %></td>
-    <td><%= link_to 'Show', star_product %></td>
-    <td><%= link_to 'Edit', edit_star_product_path(star_product) %></td>
-    <td><%= link_to 'Destroy', star_product, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', star_product, :class => 'btn' %>
+      <%= link_to 'Edit', edit_star_product_path(star_product), :class => 'btn' %>
+      <%= link_to 'Destroy', star_product, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+    </td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Product', new_star_product_path %>

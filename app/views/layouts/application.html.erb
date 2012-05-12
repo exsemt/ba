@@ -31,13 +31,13 @@
         <p class="lead">Bachelorarbeit: Vergleich des Star-Schemas und des generischen Modells mit Hilfe des Ruby on Rails Frameworks</p>
       </div>
 
-      <%# if self.controller.class.to_s.include?('Star') %>
-        <%#= render '/star/overview' %>
+      <% if self.controller.class.to_s.include?('Star') %>
+        <%= render '/star/overview' %>
       <%# elsif self.controller.class.to_s.include?('Generic') && self.controller.class.to_s.include?('Table') %>
         <%#= render '/generic/tables_overview' %>
       <%# elsif self.controller.class.to_s.include?('Manage') %>
         <%#= render '/generic/manage/overview' %>
-      <%# end %>
+      <% end %>
 
       <%= yield %>
 

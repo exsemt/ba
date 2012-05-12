@@ -12,34 +12,35 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :customer_id %><br />
-    <%= f.number_field :customer_id %>
+    <%= f.label :customer_id %>
+    <%= f.select("customer_id", Star::Customer.all.collect {|p| [ "id: #{p.id}, #{p.name}", p.id ] }, { :include_blank => true }) %>
   </div>
   <div class="field">
-    <%= f.label :product_id %><br />
-    <%= f.number_field :product_id %>
+    <%= f.label :product_id %>
+    <%= f.select("product_id", Star::Product.all.collect {|p| [ "id: #{p.id}, #{p.name}", p.id ] }, { :include_blank => true }) %>
   </div>
   <div class="field">
-    <%= f.label :branch_id %><br />
-    <%= f.number_field :branch_id %>
+    <%= f.label :branch_id %>
+    <%= f.select("branch_id", Star::Branch.all.collect {|p| [ "id: #{p.id}, #{p.branch_no}", p.id ] }, { :include_blank => true }) %>
   </div>
   <div class="field">
-    <%= f.label :date_id %><br />
-    <%= f.number_field :date_id %>
+    <%= f.label :date_id %>
+    <%= f.select("date_id", Star::Date.all.collect {|p| [ "id: #{p.id}, #{p.day}", p.id ] }, { :include_blank => true }) %>
   </div>
   <div class="field">
-    <%= f.label :number %><br />
+    <%= f.label :number %>
     <%= f.number_field :number %>
   </div>
   <div class="field">
-    <%= f.label :discount %><br />
+    <%= f.label :discount %>
     <%= f.text_field :discount %>
   </div>
   <div class="field">
-    <%= f.label :commission %><br />
+    <%= f.label :commission %>
     <%= f.text_field :commission %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', star_facts_path, :class => 'btn' %>
+    <%= f.submit("Save", :class => 'btn btn-primary') %>
   </div>
 <% end %>

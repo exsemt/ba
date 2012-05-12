@@ -12,22 +12,23 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :day %><br />
+    <%= f.label :day %>
     <%= f.number_field :day %>
   </div>
   <div class="field">
-    <%= f.label :month %><br />
+    <%= f.label :month %>
     <%= f.number_field :month %>
   </div>
   <div class="field">
-    <%= f.label :quarter %><br />
+    <%= f.label :quarter %>
     <%= f.number_field :quarter %>
   </div>
   <div class="field">
-    <%= f.label :year %><br />
+    <%= f.label :year %>
     <%= f.number_field :year %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', star_dates_path, :class => 'btn' %>
+    <%= f.submit("Save", :class => 'btn btn-primary') %>
   </div>
 <% end %>

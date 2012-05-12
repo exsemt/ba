@@ -1,6 +1,11 @@
-<h1>Editing star_product</h1>
+<%= content_for :title, 'Star > Product' %>
+
+<div class="page-header">
+  <h2>
+    Star-Schema: Editing product
+  </h2>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @star_product %> |
-<%= link_to 'Back', star_products_path %>
+<%= link_to 'Show', @star_product, :class => "btn" %>

@@ -1,6 +1,11 @@
-<h1>Editing star_date</h1>
+<%= content_for :title, 'Star > Date' %>
+
+<div class="page-header">
+  <h2>
+    Star-Schema: Editing date
+  </h2>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @star_date %> |
-<%= link_to 'Back', star_dates_path %>
+<%= link_to 'Show', @star_date, :class => "btn" %>

@@ -1,6 +1,14 @@
-<h1>Listing star_customers</h1>
+<%= content_for :title, 'Star > Customer' %>
 
-<table>
+<div class="page-header">
+  <h2>
+    Star-Schema: Customers table
+    <%= link_to('New Customer', new_star_customer_path, :class => 'btn btn-small pull-right') %>
+  </h2>
+</div>
+
+
+<table class="table table-bordered table-striped">
   <tr>
     <th>Customer no</th>
     <th>Name</th>
@@ -9,27 +17,23 @@
     <th>City</th>
     <th>Postcode</th>
     <th>Country</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Action</th>
   </tr>
 
 <% @star_customers.each do |star_customer| %>
   <tr>
     <td><%= star_customer.customer_no %></td>
     <td><%= star_customer.name %></td>
-    <td><%= star_customer.type %></td>
+    <td><%= star_customer.customer_type %></td>
     <td><%= star_customer.street_number %></td>
     <td><%= star_customer.city %></td>
     <td><%= star_customer.postcode %></td>
     <td><%= star_customer.country %></td>
-    <td><%= link_to 'Show', star_customer %></td>
-    <td><%= link_to 'Edit', edit_star_customer_path(star_customer) %></td>
-    <td><%= link_to 'Destroy', star_customer, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', star_customer, :class => 'btn' %>
+      <%= link_to 'Edit', edit_star_customer_path(star_customer), :class => 'btn' %>
+      <%= link_to 'Destroy', star_customer, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+    </td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Customer', new_star_customer_path %>
