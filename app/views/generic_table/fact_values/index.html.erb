@@ -1,12 +1,18 @@
-<h1>Listing generic_table_fact_values</h1>
+<%= content_for :title, 'GenericTable > FactValue' %>
 
-<table>
+<div class="page-header">
+  <h2>
+    Generic model: Fact value table
+    <%= link_to('New Fact value', new_generic_table_fact_value_path, :class => 'btn btn-small pull-right') %>
+  </h2>
+</div>
+
+
+<table class="table table-bordered table-striped">
   <tr>
     <th>Group</th>
-    <th>Dimension value</th>
+    <th>Dimension value id</th>
     <th>Value</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
@@ -15,13 +21,11 @@
     <td><%= generic_table_fact_value.group %></td>
     <td><%= generic_table_fact_value.dimension_value_id %></td>
     <td><%= generic_table_fact_value.value %></td>
-    <td><%= link_to 'Show', generic_table_fact_value %></td>
-    <td><%= link_to 'Edit', edit_generic_table_fact_value_path(generic_table_fact_value) %></td>
-    <td><%= link_to 'Destroy', generic_table_fact_value, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', generic_table_fact_value, :class => 'btn' %>
+      <%= link_to 'Edit', edit_generic_table_fact_value_path(generic_table_fact_value), :class => 'btn' %>
+      <%= link_to 'Destroy', generic_table_fact_value, confirm: 'Are you sure?', method: :delete, :class => 'btn' %>
+    </td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Fact value', new_generic_table_fact_value_path %>

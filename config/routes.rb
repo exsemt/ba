@@ -4,6 +4,7 @@ Bachelor::Application.routes.draw do
   root :to => "dashboard#index"
 
   # Generic Model
+  resources :generic_tables, :only => :index #get "generic_tables/index"
   namespace :generic_table do
     resources :fact_values
     resources :dimension_values

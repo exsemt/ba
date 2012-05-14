@@ -1,0 +1,129 @@
+<%= content_for :title, 'Generic Tables' %>
+
+<div class="row">
+  <div class="span6">
+    <div class="page-header">
+      <h2>
+        Dimension Table
+      </h2>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% @generic_table_dimensions.each do |generic_table_dimension| %>
+        <tr>
+          <td><%= generic_dimension_table.id %></td>
+          <td><%= generic_dimension_table.name %></td>
+          <td>
+            <%= link_to '', generic_table_dimension, :class => 'icon-arrow-right', :title => 'Show' %>
+            <%= link_to '', edit_generic_table_dimension_path(generic_table_dimension), :class => 'icon-pencil', :title => 'Edit' %>
+            <%= link_to '', generic_table_dimension, confirm: 'Are you sure?', method: :delete, :class => 'icon-remove', :title => 'Delete' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="span6">
+    <div class="page-header">
+      <h2>
+        Aggregation Table
+      </h2>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Dimension id</th>
+          <th>Parent id</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% @generic_table_aggregations.each do |generic_table_aggregation| %>
+        <tr>
+          <td><%= generic_table_aggregation.id %></td>
+          <td><%= generic_table_aggregation.name %></td>
+          <td><%= generic_table_aggregation.dimension_id %></td>
+          <td><%= generic_table_aggregation.parent_id %></td>
+          <td>
+            <%= link_to '', generic_table_aggregation, :class => 'icon-arrow-right', :title => 'Show' %>
+            <%= link_to '', edit_generic_table_aggregation_path(generic_table_aggregation), :class => 'icon-pencil', :title => 'Edit' %>
+            <%= link_to '', generic_table_aggregation, confirm: 'Are you sure?', method: :delete, :class => 'icon-remove', :title => 'Delete' %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="span6">
+    <div class="page-header">
+      <h2>
+        Dimension Value Table
+      </h2>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Aggregation id</th>
+          <th>Parent id</th>
+          <th>Value</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% @generic_table_dimension_values.each do |generic_table_dimension_value| %>
+        <tr>
+          <td><%= generic_table_dimension_value.id %></td>
+          <td><%= generic_table_dimension_value.aggregation_id %></td>
+          <td><%= generic_table_dimension_value.parent_id %></td>
+          <td><%= generic_table_dimension_value.value %></td>
+          <td>
+            <%= link_to '', generic_table_dimension_value, :class => 'icon-arrow-right', :title => 'Show' %>
+            <%= link_to '', edit_generic_table_dimension_value_path(generic_table_dimension_value), :class => 'icon-pencil', :title => 'Edit' %>
+            <%= link_to '', generic_table_dimension_value, confirm: 'Are you sure?', method: :delete, :class => 'icon-remove', :title => 'Delete' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="span6">
+    <div class="page-header">
+      <h2>
+        Fact Value Table
+      </h2>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Group</th>
+          <th>Dimension value id</th>
+          <th>Value</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% @generic_table_fact_values.each do |generic_table_fact_value| %>
+        <tr>
+          <td><%= generic_table_fact_value.id %></td>
+          <td><%= generic_table_fact_value.group %></td>
+          <td><%= generic_table_fact_value.dimension_value_id %></td>
+          <td><%= generic_table_fact_value.value %></td>
+          <td>
+            <%= link_to '', generic_table_fact_value, :class => 'icon-arrow-right', :title => 'Show' %>
+            <%= link_to '', edit_generic_table_fact_value_table(generic_table_fact_value), :class => 'icon-pencil', :title => 'Edit' %>
+            <%= link_to '', generic_table_fact_value, confirm: 'Are you sure?', method: :delete, :class => 'icon-remove', :title => 'Delete' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

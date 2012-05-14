@@ -1,27 +1,33 @@
-<h1>Listing generic_table_aggregations</h1>
+<%= content_for :title, 'GenericTable > Aggregation' %>
 
-<table>
+<div class="page-header">
+  <h2>
+    Generic model: Aggregation table
+    <%= link_to('New Aggregation', new_generic_table_aggregation_path, :class => 'btn btn-small pull-right') %>
+  </h2>
+</div>
+
+
+<table class="table table-bordered table-striped">
   <tr>
+    <th>Id</th>
     <th>Name</th>
-    <th>Dimension</th>
-    <th>Parent</th>
-    <th></th>
-    <th></th>
+    <th>Dimension id</th>
+    <th>Parent id</th>
     <th></th>
   </tr>
 
 <% @generic_table_aggregations.each do |generic_table_aggregation| %>
   <tr>
+    <td><%= generic_table_aggregation.id %></td>
     <td><%= generic_table_aggregation.name %></td>
     <td><%= generic_table_aggregation.dimension_id %></td>
     <td><%= generic_table_aggregation.parent_id %></td>
-    <td><%= link_to 'Show', generic_table_aggregation %></td>
-    <td><%= link_to 'Edit', edit_generic_table_aggregation_path(generic_table_aggregation) %></td>
-    <td><%= link_to 'Destroy', generic_table_aggregation, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', generic_table_aggregation, :class => 'btn' %>
+      <%= link_to 'Edit', edit_generic_table_aggregation_path(generic_table_aggregation), :class => 'btn' %>
+      <%= link_to 'Destroy', generic_table_aggregation, confirm: 'Are you sure?', method: :delete, :class => 'btn' %>
+    </td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Aggregation', new_generic_table_aggregation_path %>
