@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Product no</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Brand</th>
+    <th>Contents</th>
+    <th>Price</th>
+    <th>Number</th>
+  </tr>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product['product_no'] %></td>
+      <td><%= product['name'] %></td>
+      <td><%= product['category'] %></td>
+      <td><%= product['brand'] %></td>
+      <td><%= product['contents'] %></td>
+      <td><%= product['price'] %></td>
+      <td><%= product['number'] %></td>
+    </tr>
+  <% end %>
+</table>

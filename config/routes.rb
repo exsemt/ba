@@ -21,6 +21,14 @@ Bachelor::Application.routes.draw do
     resources :facts
   end
 
+  # Comparisons
+  resources :comparisons, :only => [:index] do
+    collection do
+      get 'scenario_1'
+      get 'scenario_2'
+      get 'scenario_3'
+    end
+  end
 
   ############################# INFO ###############################################
   # The priority is based upon order of creation:

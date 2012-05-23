@@ -1,0 +1,12 @@
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>State</th>
+    <th>Turnover</th>
+  </tr>
+  <% @states.each do |st| %>
+    <tr>
+      <td><%= st['state'] %></td>
+      <td><%= st['turnover'] %></td>
+    </tr>
+  <% end %>
+</table>

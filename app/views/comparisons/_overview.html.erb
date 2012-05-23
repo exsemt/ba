@@ -1,0 +1,11 @@
+<div class="well">
+  <%= form_tag comparisons_path, :method => "get" do %>
+    <p>
+      <input type="radio" name="model" value="star_schema"> Star-Schema |
+      <input type="radio" name="model" value="generic_model"> Generic model
+    </p>
+    <%= submit_tag('scenario_1', :class => "btn #{"btn-primary" if params[:action] == 'scenario_1'}") %> |
+    <%= submit_tag('scenario_2', :class => "btn #{"btn-primary" if params[:action] == 'scenario_2'}") %> |
+    <%= submit_tag('scenario_3', :class => "btn #{"btn-primary" if params[:action] == 'scenario_3'}") %>
+  <% end %>
+</div>

@@ -1,0 +1,39 @@
+# create star-schema
+> rails generate scaffold Star::Customer customer_no:integer name:string type:string street_number:string city:string postcode:string country:string
+> rails generate scaffold Star::Product product_no:integer name:string category:string brand:string contents:string price:float
+> rails generate scaffold Star::Branch branch_no:integer state:string city:string postcode:string street_number:string
+> rails generate scaffold Star::Date day:integer month:integer quarter:integer year:integer
+> rails generate scaffold Star::Fact customer_id:integer product_id:integer branch_id:integer date_id:integer number:integer discount:float commission:float
+
+# create generic model
+> rails generate scaffold GenericTable::Dimension name:string
+>	rails generate scaffold GenericTable::Aggregation name:string dimension_id:integer parent_id:integer
+>	rails generate scaffold GenericTable::DimensionValue aggregation_id:integer parent_id:integer value:string
+> rails generate scaffold GenericTable::FactValue group:integer dimension_value_id:integer value:string
+
+# create DB
+> rake db:create
+
+# start migrations
+> rake db:migrate
+
+# create start page
+> rails generate controller dashboard index
+
+# create overview page for generic model
+> rails generate controller generic_tables index
+
+# correct routes
+  config/routes.rb
+
+# correct layout and other HTML views
+  app/views/
+
+# start server
+> rails server
+
+
+
+# ################################### vergleich (comparison) ###############################################
+# create controller for model comparisons
+> rails generate controller comparisons index

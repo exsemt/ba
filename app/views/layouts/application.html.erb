@@ -15,7 +15,7 @@
           <ul class="nav">
             <li class="<%= "active" if current_controller?('/$') %>"><%= link_to('Home', root_path) %></li>
             <li class="<%= "active" if current_controller?('/star/') %>"><%= link_to('Star-Schema', star_facts_path) %></li>
-            <!--<li class="<%#= "active" if current_controller?('/generic/manage/') %>"><%#= link_to 'Generisches Modell', generic_manage_facts_url %></li>-->
+            <li class="<%= "active" if current_controller?('/comparisons') %>"><%= link_to 'Comparisons', comparisons_path %></li>
             <li class="<%= "active" if current_controller?('/generic_table') %>"><%= link_to 'Generic Tables', generic_tables_url %></li>
             <!--<li class="<%#= "active" if current_controller?('/generate_data') %>"><%#= link_to 'Generate Data', generate_data_path %></li>-->
             <!--<li class="<%#= "active" if current_controller?('/page_request') %>"><%#= link_to 'Page Requests', page_requests_path %></li>-->
@@ -35,9 +35,11 @@
         <%= render '/star/overview' %>
       <% elsif self.controller.class.to_s.include?('Generic') && self.controller.class.to_s.include?('Table') %>
         <%= render '/generic_tables/overview' %>
-      <%# elsif self.controller.class.to_s.include?('Manage') %>
-        <%#= render '/generic/manage/overview' %>
+      <% elsif current_controller?('/comparisons') %>
+        <%= render '/comparisons/overview' %>
       <% end %>
+
+      <%= render('/layouts/sql_query') if @sql %>
 
       <%= yield %>
 
