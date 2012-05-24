@@ -26,6 +26,10 @@ gem 'therubyracer'
 
 gem 'jquery-rails'
 
+# generate fake data
+gem 'populator', '~> 1.0.0'
+gem 'faker', '~> 1.0.1'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
