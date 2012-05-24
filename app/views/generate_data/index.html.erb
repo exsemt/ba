@@ -1,0 +1,71 @@
+<%= content_for :title, 'Generate Data' %>
+
+<div class="row">
+  <div class="span6">
+    <div class="page-header">
+      <h2>
+        Generate for Star Schema <%= link_to 'Destroy All Star Entries', generate_datum_path('star'), confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+      </h2>
+    </div>
+    <table class="table">
+      <thead>
+      <%= form_for(:generate, :url => generate_star_data_generate_data_path, :method => :put) do |f| %>
+        <tr>
+          <th>Object</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Product:</td>
+          <td><%= f.text_field :product %></td>
+        </tr>
+        <tr>
+          <td>Customer:</td>
+          <td><%= f.text_field :customer %></td>
+        </tr>
+        <tr>
+          <td>Branch:</td>
+          <td><%= f.text_field :branch %></td>
+        </tr>
+        <tr>
+          <td>Date:</td>
+          <td><%= f.text_field :date %></td>
+        </tr>
+        <tr>
+          <td>Fact:</td>
+          <td><%= f.text_field :fact %></td>
+        </tr>
+      </table>
+
+      <%= f.submit("Generate", :class => 'btn btn-primary') %>
+    <% end %>
+  </div>
+
+  <div class="span6">
+    <div class="page-header">
+      <h2>
+        Generate Data for Generic Model
+      </h2>
+    </div>
+    <p>
+      <%= link_to 'Destroy All Generic Entries', generate_datum_path('generic'), confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+      Löscht alle Daten von 4 Tabellen.
+    </p>
+    <p>
+      <%= link_to('Copy Attributes from Star Schema', copy_attrs_from_star_generate_data_path, :class => 'btn') %>
+      Kopiert nur die Attributen von Fact und Dimensionen Tabellen.
+    </p>
+    <p>
+      <%= link_to 'Copy Dimensions Data from Star Schema', copy_dimension_data_from_star_generate_data_path, :class => 'btn' %>
+      Kopiert alle Daten von Star Dimensions Tabellen.
+    </p>
+    <p>
+      <%= link_to 'Copy Facts Data from Star Schema', copy_fact_data_from_star_generate_data_path, :class => 'btn' %>
+      Kopiert alle Daten von Fact Tabelle.
+    </p>
+    <hr>
+    <p>
+      <%= link_to 'Copy all data form Star Schema', copy_star_completely_generate_data_path, :class => 'btn btn-primary' %>
+      Alle Daten von Star Schema kopieren.
+    </p>
+  </div>
+</div>

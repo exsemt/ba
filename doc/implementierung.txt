@@ -37,3 +37,10 @@
 # ################################### vergleich (comparison) ###############################################
 # create controller for model comparisons
 > rails generate controller comparisons index
+
+# create controller for generate data
+> rails g controller generate_data index
+
+# add gems for generate fake data
+  gem 'populator', '~> 1.0.0'
+  gem 'faker', '~> 1.0.1'
