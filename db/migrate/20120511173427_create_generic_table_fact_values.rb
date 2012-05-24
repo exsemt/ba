@@ -4,8 +4,6 @@ class CreateGenericTableFactValues < ActiveRecord::Migration
       t.integer :group
       t.integer :dimension_value_id
       t.string :value
-
-      t.timestamps
     end
   end
 end

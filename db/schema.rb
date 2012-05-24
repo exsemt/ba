@@ -14,33 +14,25 @@
 ActiveRecord::Schema.define(:version => 20120511173427) do
 
   create_table "generic_table_aggregations", :force => true do |t|
-    t.string   "name"
-    t.integer  "dimension_id"
-    t.integer  "parent_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string  "name"
+    t.integer "dimension_id"
+    t.integer "parent_id"
   end
 
   create_table "generic_table_dimension_values", :force => true do |t|
-    t.integer  "aggregation_id"
-    t.integer  "parent_id"
-    t.string   "value"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer "aggregation_id"
+    t.integer "parent_id"
+    t.string  "value"
   end
 
   create_table "generic_table_dimensions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string "name"
   end
 
   create_table "generic_table_fact_values", :force => true do |t|
-    t.integer  "group"
-    t.integer  "dimension_value_id"
-    t.string   "value"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.integer "group"
+    t.integer "dimension_value_id"
+    t.string  "value"
   end
 
   create_table "star_branches", :force => true do |t|

@@ -4,8 +4,6 @@ class CreateGenericTableDimensionValues < ActiveRecord::Migration
       t.integer :aggregation_id
       t.integer :parent_id
       t.string :value
-
-      t.timestamps
     end
   end
 end

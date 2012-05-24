@@ -4,8 +4,6 @@ class CreateGenericTableAggregations < ActiveRecord::Migration
       t.string :name
       t.integer :dimension_id
       t.integer :parent_id
-
-      t.timestamps
     end
   end
 end
