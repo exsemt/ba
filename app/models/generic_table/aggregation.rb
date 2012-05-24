@@ -3,4 +3,6 @@ class GenericTable::Aggregation < ActiveRecord::Base
 
   belongs_to :dimension
   has_many :dimension_values
+  belongs_to :aggregation, :foreign_key => :parent_id
+
 end

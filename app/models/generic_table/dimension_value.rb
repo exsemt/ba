@@ -3,4 +3,6 @@ class GenericTable::DimensionValue < ActiveRecord::Base
 
   belongs_to :aggregation
   has_many :fact_values
+  belongs_to :dimension_value, :foreign_key => :parent_id
+
 end
