@@ -18,8 +18,8 @@
       </thead>
       <% @generic_table_dimensions.each do |generic_table_dimension| %>
         <tr>
-          <td><%= generic_dimension_table.id %></td>
-          <td><%= generic_dimension_table.name %></td>
+          <td><%= generic_table_dimension.id %></td>
+          <td><%= generic_table_dimension.name %></td>
           <td>
             <%= link_to '', generic_table_dimension, :class => 'icon-arrow-right', :title => 'Show' %>
             <%= link_to '', edit_generic_table_dimension_path(generic_table_dimension), :class => 'icon-pencil', :title => 'Edit' %>
@@ -119,7 +119,7 @@
           <td><%= generic_table_fact_value.value %></td>
           <td>
             <%= link_to '', generic_table_fact_value, :class => 'icon-arrow-right', :title => 'Show' %>
-            <%= link_to '', edit_generic_table_fact_value_table(generic_table_fact_value), :class => 'icon-pencil', :title => 'Edit' %>
+            <%= link_to '', edit_generic_table_fact_value_path(generic_table_fact_value), :class => 'icon-pencil', :title => 'Edit' %>
             <%= link_to '', generic_table_fact_value, confirm: 'Are you sure?', method: :delete, :class => 'icon-remove', :title => 'Delete' %>
           </td>
         </tr>
