@@ -136,15 +136,16 @@ private
     postcode_id =      GenericTable::Aggregation.create!(:name => 'postcode', :parent_id => city_id, :dimension_id => customer_id).id
     street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id, :dimension_id => customer_id).id
     customer_type_id = GenericTable::Aggregation.create!(:name => 'customer_type', :parent_id => street_number_id, :dimension_id => customer_id).id
-    GenericTable::Aggregation.create!(:name => 'name', :parent_id => customer_type_id, :dimension_id => customer_id)
+    customer_name_id = GenericTable::Aggregation.create!(:name => 'name', :parent_id => customer_type_id, :dimension_id => customer_id)
+    GenericTable::Aggregation.create!(:name => 'customer_no', :parent_id => customer_name_id, :dimension_id => customer_id)
 
     # import branch {:branch_no, :city, :postcode, :state, :street_number}
     branch_id =   GenericTable::Dimension.create!(:name => 'Branch').id
     state_id =    GenericTable::Aggregation.create!(:name => 'state', :dimension_id => branch_id).id
-    city_id =     GenericTable::Aggregation.create!(:name => 'city', :parent_id => state_id, :dimension_id => customer_id).id
-    postcode_id = GenericTable::Aggregation.create!(:name => 'postcode', :parent_id => city_id, :dimension_id => customer_id).id
-    street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id, :dimension_id => customer_id).id
-    GenericTable::Aggregation.create!(:name => 'branch_no', :parent_id => street_number_id, :dimension_id => customer_id)
+    city_id =     GenericTable::Aggregation.create!(:name => 'city', :parent_id => state_id, :dimension_id => branch_id).id
+    postcode_id = GenericTable::Aggregation.create!(:name => 'postcode', :parent_id => city_id, :dimension_id => branch_id).id
+    street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id, :dimension_id => branch_id).id
+    GenericTable::Aggregation.create!(:name => 'branch_no', :parent_id => street_number_id, :dimension_id => branch_id)
 
     # import date
     date_id =    GenericTable::Dimension.create!(:name => 'Date').id
