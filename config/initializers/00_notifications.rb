@@ -20,7 +20,14 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |*args|
     end
 
     if @events.empty?
-    sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `sql`, `payload`, `table_size`) VALUES ('#{event.transaction_id}', '#{event.time.strftime("%Y-%m-%d %H:%M:%S")}', '#{event.end.strftime("%Y-%m-%d %H:%M:%S")}', '#{event.duration}', '#{(event.payload.is_a?(Array) ? event.payload.map{|p| p[:sql]} : event.payload[:sql]).to_s.gsub("'", '"')}', '#{event.payload.to_s.gsub("'", '"')}', 0)}
+    sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `sql`, `payload`, `table_size`)
+(SELECT '#{event.transaction_id}',
+'#{event.time.strftime("%Y-%m-%d %H:%M:%S")}',
+'#{event.end.strftime("%Y-%m-%d %H:%M:%S")}',
+'#{event.duration}',
+'#{(event.payload.is_a?(Array) ? event.payload.map{|p| p[:sql]} : event.payload[:sql]).to_s.gsub("'", '"')}',
+'#{event.payload.to_s.gsub("'", '"')}',
+count(*) AS table_size FROM star_facts)}
 
       ActiveRecord::Base.connection.send("insert_sql", sql) #TODO table_size
     end
