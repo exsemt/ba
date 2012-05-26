@@ -1,6 +1,8 @@
 class ComparisonsController < ApplicationController
 
   def index
+    SUBSCRIBE['SQL'] = true
+
     if ['star_schema', 'generic_model'].include?(params['model']) && !params['commit'].blank?
       case params['commit']
         when 'scenario_1'
@@ -15,6 +17,8 @@ class ComparisonsController < ApplicationController
 
       @db_response = ActiveRecord::Base.connection.select(@sql) unless @sql.blank?
     end
+
+    SUBSCRIBE['SQL'] = false
   end
 
 private
