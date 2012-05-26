@@ -61,5 +61,8 @@ module Bachelor
     config.assets.version = '1.0'
 
     Faker::Config.locale = :de
+
+    DBLOGGER = Logger.new("#{Rails.root.to_s}/log/#{Rails.env}_database.log")
+    ActiveRecord::Base.logger = DBLOGGER
   end
 end
