@@ -1,18 +1,20 @@
 <%= render '/comparisons/overview' %>
 
-<%= render('/layouts/sql_query') if @sql %>
+<%= render('/layouts/sql_query') unless @sql.blank? %>
 
-<table class="table table-bordered table-striped">
-  <tr>
-    <% @states.first.keys.each do |key| %>
-      <th><%= key %></th>
-    <% end if @states %>
-  </tr>
-  <% @states.each do |st| %>
+<% unless @db_response.blank? %>
+  <table class="table table-bordered table-striped">
     <tr>
-      <% st.values.each do |value| %>
-        <td><%= value %></td>
+      <% @db_response.first.keys.each do |key| %>
+        <th><%= key %></th>
       <% end %>
     </tr>
-  <% end if @states %>
-</table>
+    <% @db_response.each do |st| %>
+      <tr>
+        <% st.values.each do |value| %>
+          <td><%= value %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

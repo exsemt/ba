@@ -13,7 +13,7 @@ class ComparisonsController < ApplicationController
           flash[:error] = "ERROR: unknown scenario!"
       end
 
-      @states = ActiveRecord::Base.connection.select(@sql)
+      @db_response = ActiveRecord::Base.connection.select(@sql) unless @sql.blank?
     end
   end
 
@@ -148,7 +148,7 @@ private
       sql = Star::Product.select('star_products.*').joins(:facts => :date).
         where('star_dates.month = 12 AND star_dates.year = 2010').to_sql
     else
-      sql = nil
+      sql = ''
     end
 
     sql
