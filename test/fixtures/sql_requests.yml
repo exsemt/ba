@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  server_id: MyString
+  start: 2012-05-26 13:07:08
+  finish: 2012-05-26 13:07:08
+  sql_duration: 1.5
+  sql: MyText
+  payload: MyText
+  table_size: 1
+
+two:
+  server_id: MyString
+  start: 2012-05-26 13:07:08
+  finish: 2012-05-26 13:07:08
+  sql_duration: 1.5
+  sql: MyText
+  payload: MyText
+  table_size: 1

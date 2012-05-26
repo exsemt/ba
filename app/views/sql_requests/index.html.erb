@@ -1,0 +1,37 @@
+<%= content_for :title, 'SQL Requests' %>
+
+<div class="page-header">
+  <h2>Listing SQL Requests <%= link_to 'Destroy All Entries', sql_request_path('all'), confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger btn-small pull-right' %></h2>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Server_id</th>
+      <th>Start</th>
+      <th>Finish</th>
+      <th>Sql duration</th>
+      <th>Sql</th>
+      <th>Payload</th>
+      <th>Table size</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <% @sql_requests.each do |sql_request| %>
+    <tr>
+      <td><%= sql_request.id %></td>
+      <td><%= sql_request.server_id %></td>
+      <td><%= sql_request.start %></td>
+      <td><%= sql_request.finish %></td>
+      <td><%= sql_request.sql_duration %></td>
+      <td><%= sql_request.sql %></td>
+      <td><%= sql_request.payload[0..9] %> ...</td>
+      <td><%= sql_request.table_size %></td>
+      <td>
+        <%= link_to '', sql_request, :class => 'icon-arrow-right', :title => 'Show' %>
+        <%= link_to '', sql_request, :method => :delete, :confirm => "Are you sure?", :class => 'icon-remove', :title => 'Delete' %>
+      </td>
+    </tr>
+  <% end %>
+</table>

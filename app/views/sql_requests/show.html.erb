@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Server:</b>
+  <%= @sql_request.server_id %>
+</p>
+
+<p>
+  <b>Start:</b>
+  <%= @sql_request.start %>
+</p>
+
+<p>
+  <b>Finish:</b>
+  <%= @sql_request.finish %>
+</p>
+
+<p>
+  <b>Sql duration:</b>
+  <%= @sql_request.sql_duration %>
+</p>
+
+<p>
+  <b>Sql:</b>
+  <%= @sql_request.sql %>
+</p>
+
+<p>
+  <b>Payload:</b>
+  <%= @sql_request.payload %>
+</p>
+
+<p>
+  <b>Table size:</b>
+  <%= @sql_request.table_size %>
+</p>
+
+<%= link_to 'Back', sql_requests_path %>

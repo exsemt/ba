@@ -18,8 +18,7 @@
             <li class="<%= "active" if current_controller?('/generic_table') %>"><%= link_to 'Generic Tables', generic_tables_url %></li>
             <li class="<%= "active" if current_controller?('/comparisons') %>"><%= link_to 'Comparisons', comparisons_path %></li>
             <li class="<%= "active" if current_controller?('/generate_data') %>"><%= link_to 'Generate Data', generate_data_path %></li>
-            <!--<li class="<%#= "active" if current_controller?('/page_request') %>"><%#= link_to 'Page Requests', page_requests_path %></li>-->
-            <!--<li class="<%#= "active" if current_controller?('/sql_request') %>"><%#= link_to 'SQL Requests', sql_requests_path %></li>-->
+            <li class="<%= "active" if current_controller?('/sql_request') %>"><%= link_to 'SQL Requests', sql_requests_path %></li>
           </ul>
         </div>
       </div>

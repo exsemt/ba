@@ -33,6 +33,9 @@ Bachelor::Application.routes.draw do
     get :copy_star_completely, :on => :collection
   end
 
+  # SQL requests
+  resources :sql_requests, :only => [:index, :show, :destroy]
+
   ############################# INFO ###############################################
   # The priority is based upon order of creation:
   # first created -> highest priority.

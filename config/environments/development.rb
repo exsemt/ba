@@ -40,4 +40,7 @@ Bachelor::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # notifications subscribe
+  SUBSCRIBE_LOGGER = Logger.new("#{Rails.root.to_s}/log/#{Rails.env}_notifications_subscribe.log")
 end

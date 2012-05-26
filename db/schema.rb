@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511173427) do
+ActiveRecord::Schema.define(:version => 20120526110708) do
 
   create_table "generic_table_aggregations", :force => true do |t|
     t.string  "name"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(:version => 20120511173427) do
     t.integer "group"
     t.integer "dimension_value_id"
     t.string  "value"
+  end
+
+  create_table "sql_requests", :force => true do |t|
+    t.string   "server_id"
+    t.datetime "start"
+    t.datetime "finish"
+    t.float    "sql_duration"
+    t.text     "sql"
+    t.text     "payload"
+    t.integer  "table_size"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "star_branches", :force => true do |t|
