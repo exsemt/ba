@@ -22,13 +22,7 @@ Bachelor::Application.routes.draw do
   end
 
   # Comparisons
-  resources :comparisons, :only => [:index] do
-    collection do
-      get 'scenario_1'
-      get 'scenario_2'
-      get 'scenario_3'
-    end
-  end
+  resources :comparisons, :only => [:index]
 
   # Generate data
   resources :generate_data, :only => [:index, :destroy] do
