@@ -2,7 +2,7 @@ class SqlRequestsController < ApplicationController
   # GET /sql_requests
   # GET /sql_requests.json
   def index
-    @sql_requests = SqlRequest.order('id DESC')
+    @sql_requests = SqlRequest.order('id DESC').limit(100)
 
     respond_to do |format|
       format.html # index.html.erb
