@@ -40,9 +40,11 @@ gem 'faker', '~> 1.0.1'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'debugger'
+
+
+# Deploy with Capistrano
+gem 'capistrano'
+gem 'rvm-capistrano'
+gem 'passenger', '3.0.12'
