@@ -152,7 +152,26 @@ private
       sql = Star::Product.select('star_products.*').joins(:facts => :date).
         where('star_dates.month = 12 AND star_dates.year = 2010').to_sql
     else
-      sql = ''
+      sql = "
+        SELECT dv_1.value AS price, dv_2.value AS product_no, dv_3.value AS name, dv_4.value AS category, dv_5.value AS brand, dv_6.value AS contents
+            FROM generic_table_fact_values INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
+            generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4, generic_table_dimension_values dv_5 , generic_table_dimension_values dv_6
+            WHERE dv_1.parent_id = dv_2.id
+            AND dv_2.parent_id = dv_3.id
+            AND dv_3.parent_id = dv_4.id
+            AND dv_4.parent_id = dv_5.id
+            AND dv_5.parent_id = dv_6.id
+            AND generic_table_dimensions.name = 'Product'
+        AND generic_table_fact_values.group in (
+        SELECT generic_table_fact_values.group
+            FROM generic_table_fact_values INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
+            generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4
+              WHERE dv_1.parent_id = dv_2.id
+            AND dv_2.parent_id = dv_3.id
+            AND dv_3.parent_id = dv_4.id
+            AND generic_table_dimensions.name = 'Date'
+            AND dv_4.value = 2010
+            AND dv_2.value = 12)"
     end
 
     sql
