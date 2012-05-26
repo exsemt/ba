@@ -2,7 +2,7 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |*args|
   @events = []
   event = ActiveSupport::Notifications::Event.new(*args)
 
-  if "SCHEMA" != event.payload[:name] && !event.payload[:sql].match(/sql_requests|schema_migrations|(CREATE TABLE)|(DROP DATABASE)|(CREATE DATABASE)/)
+  if "SCHEMA" != event.payload[:name] && !event.payload[:sql].match(/sql_requests|schema_migrations|(DELETE FROM)|(ALTER TABLE)|(INSERT INTO)|(CREATE TABLE)|(DROP DATABASE)|(CREATE DATABASE)/)
     SUBSCRIBE_LOGGER.debug(["NOTIF(sql.active_record):", event.name, event.time, event.end, event.transaction_id, event.payload, "DURATION: #{event.duration}"].join(" || "))
 
     if event.payload[:sql].match("BEGIN") || !@events.empty?
@@ -21,13 +21,12 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |*args|
 
     if @events.empty?
     sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `sql`, `payload`, `table_size`)
-(SELECT '#{event.transaction_id}',
+VALUES ('#{event.transaction_id}',
 '#{event.time.strftime("%Y-%m-%d %H:%M:%S")}',
 '#{event.end.strftime("%Y-%m-%d %H:%M:%S")}',
 '#{event.duration}',
 '#{(event.payload.is_a?(Array) ? event.payload.map{|p| p[:sql]} : event.payload[:sql]).to_s.gsub("'", '"')}',
-'#{event.payload.to_s.gsub("'", '"')}',
-count(*) AS table_size FROM star_facts)}
+'#{event.payload.to_s.gsub("'", '"')}','0')}
 
       ActiveRecord::Base.connection.send("insert_sql", sql) #TODO table_size
     end
