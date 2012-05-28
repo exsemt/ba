@@ -5,7 +5,7 @@ class CreateSqlRequests < ActiveRecord::Migration
       t.datetime :start
       t.datetime :finish
       t.float :sql_duration
-      t.text :sql
+      t.text :sql_query
       t.text :payload
       t.integer :table_size
 

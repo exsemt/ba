@@ -9,13 +9,13 @@ Last 100 lines
   <thead>
     <tr>
       <th>id</th>
-      <th>Server_id</th>
-      <th>Start</th>
-      <th>Finish</th>
-      <th>Sql duration</th>
-      <th>Sql</th>
-      <th>Payload</th>
-      <th>Table size</th>
+      <th>server_id</th>
+      <th>start</th>
+      <th>finish</th>
+      <th>sql_duration</th>
+      <th>sql_query</th>
+      <th>payload</th>
+      <th>table_size</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -26,7 +26,7 @@ Last 100 lines
       <td><%= sql_request.start %></td>
       <td><%= sql_request.finish %></td>
       <td><%= sql_request.sql_duration %></td>
-      <td><%= sql_request.sql %></td>
+      <td><%= sql_request.sql_query %></td>
       <td><%= sql_request.payload[0..9] %> ...</td>
       <td><%= sql_request.table_size %></td>
       <td>

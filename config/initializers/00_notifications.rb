@@ -20,7 +20,7 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |*args|
     end
 
     if @events.empty?
-    sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `sql`, `payload`, `table_size`)
+    sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `sql_query`, `payload`, `table_size`)
 (SELECT '#{event.transaction_id}',
 '#{event.time.strftime("%Y-%m-%d %H:%M:%S")}',
 '#{event.end.strftime("%Y-%m-%d %H:%M:%S")}',
