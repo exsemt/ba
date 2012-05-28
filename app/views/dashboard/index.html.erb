@@ -1,3 +1,22 @@
 <div class="well">
   Repository: <%= link_to 'https://github.com/exsemt/ba', 'https://github.com/exsemt/ba' %>
 </div>
+
+<%= render('/layouts/sql_query') unless @sql.blank? %>
+
+<% unless @db_response.blank? %>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <% @db_response.first.keys.each do |key| %>
+        <th><%= key %></th>
+      <% end %>
+    </tr>
+    <% @db_response.each do |st| %>
+      <tr>
+        <% st.values.each do |value| %>
+          <td><%= value %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
