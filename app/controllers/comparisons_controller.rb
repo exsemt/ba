@@ -122,19 +122,21 @@ private
           FROM (SELECT generic_table_dimensions.name AS d_name, generic_table_aggregations.name AS a_name, generic_table_dimension_values.value AS d_value, generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value  FROM generic_table_fact_values INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT
         where FACT.d_value = 'number'
         AND
-        (SELECT dv_4.value
+        (SELECT dv_5.value
         FROM generic_table_fact_values INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
-        generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4
+        generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4, generic_table_dimension_values dv_5
         WHERE dv_1.parent_id = dv_2.id
         AND dv_2.parent_id = dv_3.id
         AND dv_3.parent_id = dv_4.id
+        AND dv_4.parent_id = dv_5.id
         AND generic_table_dimensions.name = 'Branch'
         AND generic_table_fact_values.group = FACT.f_group) = 'Hamburg'
         AND
-          (SELECT dv_2.value
+          (SELECT dv_3.value
         FROM generic_table_fact_values INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
-        generic_table_dimension_values dv_2
+        generic_table_dimension_values dv_2, generic_table_dimension_values dv_3
         WHERE dv_1.parent_id = dv_2.id
+        AND dv_2.parent_id = dv_3.id
         AND generic_table_dimensions.name = 'Customer'
         AND generic_table_fact_values.group = FACT.f_group) = 'privat'
         LIMIT 20"
