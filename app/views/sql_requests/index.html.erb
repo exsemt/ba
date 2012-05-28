@@ -9,6 +9,7 @@ Last 100 lines
   <thead>
     <tr>
       <th>id</th>
+      <th>name</th>
       <th>server_id</th>
       <th>start</th>
       <th>finish</th>
@@ -22,6 +23,7 @@ Last 100 lines
   <% @sql_requests.each do |sql_request| %>
     <tr>
       <td><%= sql_request.id %></td>
+      <td><%= sql_request.name %></td>
       <td><%= sql_request.server_id %></td>
       <td><%= sql_request.start %></td>
       <td><%= sql_request.finish %></td>

@@ -15,7 +15,7 @@ class ComparisonsController < ApplicationController
           flash[:error] = "ERROR: unknown scenario!"
       end
 
-      @db_response = ActiveRecord::Base.connection.select(@sql) unless @sql.blank?
+      @db_response = ActiveRecord::Base.connection.select(@sql, "#{params['model']}_#{params['commit']}") unless @sql.blank?
     end
 
     SUBSCRIBE['SQL'] = false

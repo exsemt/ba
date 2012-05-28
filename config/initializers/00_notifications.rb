@@ -20,11 +20,12 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |*args|
     end
 
     if @events.empty?
-    sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `sql_query`, `payload`, `table_size`)
+    sql = %{INSERT INTO `sql_requests` (`server_id`, `start`, `finish`, `sql_duration`, `name`, `sql_query`, `payload`, `table_size`)
 (SELECT '#{event.transaction_id}',
 '#{event.time.strftime("%Y-%m-%d %H:%M:%S")}',
 '#{event.end.strftime("%Y-%m-%d %H:%M:%S")}',
 '#{event.duration}',
+'#{event.payload[:name]}',
 '#{(event.payload.is_a?(Array) ? event.payload.map{|p| p[:sql]} : event.payload[:sql]).to_s.gsub("'", '"')}',
 '#{event.payload.to_s.gsub("'", '"')}', COUNT(*) FROM star_facts)}
 
