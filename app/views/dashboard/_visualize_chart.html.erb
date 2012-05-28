@@ -1,6 +1,6 @@
 <div>
   <% @visualize_chart.each do |key, values| %>
-    <table style="display: none;" id="visualize-chart">
+    <table style="display: none;" id="visualize_chart_<%= key %>">
       <caption>Fact table with <%= key %> entries</caption>
       <thead>
         <tr>
@@ -31,6 +31,8 @@
 
 <script type="text/javascript">
   $(function(){
-    $('#visualize-chart').visualize({type: 'bar', width: '620px', height: '400px'});
+    <% @visualize_chart.each do |k,v| %>
+      $('#visualize_chart_<%= k %>').visualize({type: 'bar', width: '620px', height: '400px'});
+    <% end %>
   });
 </script>
