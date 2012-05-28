@@ -2,13 +2,14 @@
 
 <div class="page-header">
   <h2>
-    Star-Schema table: star_dates
+    Star-Schema table: star_dates (size: <%= @star_dates.size if @star_dates %>)
     <%= link_to('New date', new_star_date_path, :class => 'btn btn-small pull-right') %>
   </h2>
 </div>
 
 <table class="table table-bordered table-striped">
   <tr>
+    <th>ID</th>
     <th>Day</th>
     <th>Month</th>
     <th>Quarter</th>
@@ -18,6 +19,7 @@
 
 <% @star_dates.each do |star_date| %>
   <tr>
+    <td><%= star_date.id %></td>
     <td><%= star_date.day %></td>
     <td><%= star_date.month %></td>
     <td><%= star_date.quarter %></td>

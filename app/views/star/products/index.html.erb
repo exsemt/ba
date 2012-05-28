@@ -2,7 +2,7 @@
 
 <div class="page-header">
   <h2>
-    Star-Schema table: star_products
+    Star-Schema table: star_products (size: <%= @star_products.size if @star_products %>)
     <%= link_to('New product', new_star_product_path, :class => 'btn btn-small pull-right') %>
   </h2>
 </div>
@@ -10,6 +10,7 @@
 
 <table class="table table-bordered table-striped">
   <tr>
+    <th>ID</th>
     <th>Product no</th>
     <th>Name</th>
     <th>Category</th>
@@ -21,6 +22,7 @@
 
 <% @star_products.each do |star_product| %>
   <tr>
+    <td><%= star_product.id %></td>
     <td><%= star_product.product_no %></td>
     <td><%= star_product.name %></td>
     <td><%= star_product.category %></td>

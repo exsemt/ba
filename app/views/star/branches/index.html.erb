@@ -2,13 +2,14 @@
 
 <div class="page-header">
   <h2>
-    Star-Schema table: star_branches
+    Star-Schema table: star_branches (size: <%= @star_branches.size if @star_branches %>)
     <%= link_to('New branch', new_star_branch_path, :class => 'btn btn-small pull-right') %>
   </h2>
 </div>
 
 <table class="table table-bordered table-striped">
   <tr>
+    <th>ID</th>
     <th>Branch no</th>
     <th>State</th>
     <th>City</th>
@@ -19,6 +20,7 @@
 
 <% @star_branches.each do |star_branch| %>
   <tr>
+    <td><%= star_branch.id %></td>
     <td><%= star_branch.branch_no %></td>
     <td><%= star_branch.state %></td>
     <td><%= star_branch.city %></td>
