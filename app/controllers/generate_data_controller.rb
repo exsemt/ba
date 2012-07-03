@@ -60,50 +60,25 @@ class GenerateDataController < ApplicationController
       date.street_number = Faker::Address.street_name
     end
 
-    product_ids = Star::Product.select(:id).map(&:id)
+    product_ids =  Star::Product.select(:id).map(&:id)
     customer_ids = Star::Customer.select(:id).map(&:id)
-    date_ids = Star::Date.select(:id).map(&:id)
-    branch_ids = Star::Branch.select(:id).map(&:id)
+    date_ids =     Star::Date.select(:id).map(&:id)
+    branch_ids =   Star::Branch.select(:id).map(&:id)
 
     Star::Fact.populate params[:generate][:fact].to_i do |fact|
-      fact.product_id = product_ids
+      fact.product_id =  product_ids
       fact.customer_id = customer_ids
-      fact.date_id = date_ids
-      fact.branch_id = branch_ids
-      fact.number = 1..20
-      fact.discount = 1..10
-      fact.commission = [0, 0, 0, 10, 20]
+      fact.date_id =     date_ids
+      fact.branch_id =   branch_ids
+      fact.number =      1..20
+      fact.discount =    1..10
+      fact.commission =  [0, 0, 0, 10, 20]
     end
 
     redirect_to generate_data_path
   end
 
   ########################### Generic Model ##############################
-  def copy_attrs_from_star
-    copy_star_attrs
-
-    redirect_to generate_data_path
-  end
-
-  def copy_dimension_data_from_star
-    dimensions = GenericTable::Dimension.select('distinct(generic_table_dimensions.name), generic_table_dimensions.*').
-      joins(:aggregations).where('generic_table_dimensions.name != generic_table_aggregations.name')
-
-   dimensions.each do |dimension|
-     Star::Fact.first.send(dimension.name.downcase).class.all.each do |star_dim|
-       Generic::Dimension.new(star_dim.attributes.merge(:dimension_name => dimension.name)).create!
-     end
-   end
-
-    redirect_to generate_data_path
-  end
-
-  def copy_fact_data_from_star
-    copy_star_data
-
-    redirect_to generate_data_path
-  end
-
   def copy_star_completely
     params[:id] = 'generic'
     clear_tables
@@ -130,32 +105,32 @@ private
     GenericTable::Aggregation.create!(                :name => 'price',    :parent_id => product_no_id,:dimension_id => product_id)
 
     # import customer {:city, :country, :customer_no, :name, :postcode, :street_number, :customer_type}
-    customer_id =      GenericTable::Dimension.create!(:name => 'Customer').id
-    country_id =       GenericTable::Aggregation.create!(:name => 'country', :dimension_id => customer_id).id
-    city_id =          GenericTable::Aggregation.create!(:name => 'city', :parent_id => country_id, :dimension_id => customer_id).id
-    postcode_id =      GenericTable::Aggregation.create!(:name => 'postcode', :parent_id => city_id, :dimension_id => customer_id).id
-    street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id, :dimension_id => customer_id).id
+    customer_id =      GenericTable::Dimension.create!(  :name => 'Customer').id
+    country_id =       GenericTable::Aggregation.create!(:name => 'country',                                       :dimension_id => customer_id).id
+    city_id =          GenericTable::Aggregation.create!(:name => 'city',          :parent_id => country_id,       :dimension_id => customer_id).id
+    postcode_id =      GenericTable::Aggregation.create!(:name => 'postcode',      :parent_id => city_id,          :dimension_id => customer_id).id
+    street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id,      :dimension_id => customer_id).id
     customer_type_id = GenericTable::Aggregation.create!(:name => 'customer_type', :parent_id => street_number_id, :dimension_id => customer_id).id
-    customer_name_id = GenericTable::Aggregation.create!(:name => 'name', :parent_id => customer_type_id, :dimension_id => customer_id).id
-    GenericTable::Aggregation.create!(:name => 'customer_no', :parent_id => customer_name_id, :dimension_id => customer_id)
+    customer_name_id = GenericTable::Aggregation.create!(:name => 'name',          :parent_id => customer_type_id, :dimension_id => customer_id).id
+    GenericTable::Aggregation.create!(                   :name => 'customer_no',   :parent_id => customer_name_id, :dimension_id => customer_id)
 
     # import branch {:branch_no, :city, :postcode, :state, :street_number}
-    branch_id =   GenericTable::Dimension.create!(:name => 'Branch').id
-    state_id =    GenericTable::Aggregation.create!(:name => 'state', :dimension_id => branch_id).id
-    city_id =     GenericTable::Aggregation.create!(:name => 'city', :parent_id => state_id, :dimension_id => branch_id).id
-    postcode_id = GenericTable::Aggregation.create!(:name => 'postcode', :parent_id => city_id, :dimension_id => branch_id).id
-    street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id, :dimension_id => branch_id).id
-    GenericTable::Aggregation.create!(:name => 'branch_no', :parent_id => street_number_id, :dimension_id => branch_id)
+    branch_id =        GenericTable::Dimension.create!(  :name => 'Branch').id
+    state_id =         GenericTable::Aggregation.create!(:name => 'state',                                         :dimension_id => branch_id).id
+    city_id =          GenericTable::Aggregation.create!(:name => 'city',          :parent_id => state_id,         :dimension_id => branch_id).id
+    postcode_id =      GenericTable::Aggregation.create!(:name => 'postcode',      :parent_id => city_id,          :dimension_id => branch_id).id
+    street_number_id = GenericTable::Aggregation.create!(:name => 'street_number', :parent_id => postcode_id,      :dimension_id => branch_id).id
+    GenericTable::Aggregation.create!(                   :name => 'branch_no',     :parent_id => street_number_id, :dimension_id => branch_id)
 
     # import date
-    date_id =    GenericTable::Dimension.create!(:name => 'Date').id
-    year_id =    GenericTable::Aggregation.create!(:name => 'year', :dimension_id => date_id).id
-    quarter_id = GenericTable::Aggregation.create!(:name => 'quarter', :parent_id => year_id, :dimension_id => date_id).id
-    month_id =   GenericTable::Aggregation.create!(:name => 'month', :parent_id => quarter_id, :dimension_id => date_id).id
-    GenericTable::Aggregation.create!(:name => 'day', :parent_id => month_id, :dimension_id => date_id)
+    date_id =    GenericTable::Dimension.create!(  :name => 'Date').id
+    year_id =    GenericTable::Aggregation.create!(:name => 'year',                              :dimension_id => date_id).id
+    quarter_id = GenericTable::Aggregation.create!(:name => 'quarter', :parent_id => year_id,    :dimension_id => date_id).id
+    month_id =   GenericTable::Aggregation.create!(:name => 'month',   :parent_id => quarter_id, :dimension_id => date_id).id
+    GenericTable::Aggregation.create!(             :name => 'day',     :parent_id => month_id,   :dimension_id => date_id)
 
     # import value
-    value_id = GenericTable::Dimension.create!(:name => 'value').id
+    value_id =      GenericTable::Dimension.create!(  :name => 'value').id
     aggr_value_id = GenericTable::Aggregation.create!(:name => 'value', :dimension_id => value_id).id
     GenericTable::DimensionValue.create!(:aggregation_id => aggr_value_id, :value => 'number')
     GenericTable::DimensionValue.create!(:aggregation_id => aggr_value_id, :value => 'discount')
