@@ -11,7 +11,7 @@ class GenerateDataController < ApplicationController
     redirect_to generate_data_path
   end
 
-  ######################### Star Schema #####################################
+  ########################### Star Schema ################################
   def generate_star_data
     # attr_accessible :brand, :category, :contents, :name, :price, :product_no
     Star::Product.populate params[:generate][:product].to_i do |product|
@@ -93,7 +93,7 @@ class GenerateDataController < ApplicationController
   end
 
 private
-
+  ########################## Private Methods #############################
   def copy_star_attrs
     # import product {:brand, :category, :contents, :name, :price, :product_no}
     product_id =    GenericTable::Dimension.create!(  :name => 'Product').id
