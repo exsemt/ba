@@ -27,9 +27,6 @@ Bachelor::Application.routes.draw do
   # Generate data
   resources :generate_data, :only => [:index, :destroy] do
     put :generate_star_data, :on => :collection
-    get :copy_attrs_from_star, :on => :collection
-    get :copy_dimension_data_from_star, :on => :collection
-    get :copy_fact_data_from_star, :on => :collection
     get :copy_star_completely, :on => :collection
   end
 
