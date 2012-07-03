@@ -39,7 +39,7 @@
 > rails generate controller comparisons index
 
 # create controller for generate data
-> rails g controller generate_data index
+> rails generate controller generate_data index
 
 # add gems for generate fake data
   gem 'populator', '~> 1.0.0'
@@ -47,4 +47,4 @@
 
 # SQL Requests
 > rails generate scaffold SqlRequest server_id:string start:datetime finish:datetime sql_duration:float sql:text payload:text table_size:integer
-rake db:migrate
+> rake db:migrate
