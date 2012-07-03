@@ -33,41 +33,14 @@ private
       Star::Branch.select([:state, 'sum(star_facts.number * star_products.price) AS turnover']).
         joins(:facts => [:date, :product]).where('star_dates.year = 2010').order('turnover DESC').group(:state).to_sql
     else
-      # --------------------- UMSATZ pro FACT ---------------------
-#      SELECT FACT.f_group, FACT.f_value * (SELECT FACT_0.d_value FROM (SELECT generic_table_dimensions.name AS d_name, generic_table_aggregations.name AS a_name, generic_table_dimension_values.value AS d_value, generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value  FROM generic_table_fact_values INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT_0 WHERE FACT_0.a_name ='price' AND FACT_0.f_group = FACT.f_group ) FROM
-#       (SELECT generic_table_dimensions.name AS d_name, generic_table_aggregations.name AS a_name, generic_table_dimension_values.value AS d_value, generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value  FROM generic_table_fact_values INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT
-#       where FACT.d_value = 'number'
-
-      # ---------- GET id von gesuchten dimension-attribut
-      # SELECT generic_table_aggregations.id FROM generic_table_aggregations INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id WHERE(generic_table_dimensions.name='Branch' AND generic_table_aggregations.name='state')
-
-      # ----------- SQL recursion on parent_id
-      #  SELECT dv_5.value FROM generic_table_dimension_values dv_1, generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4, generic_table_dimension_values dv_5
-      #    WHERE dv_1.parent_id = dv_2.id
-      #    AND dv_2.parent_id = dv_3.id
-      #    AND dv_3.parent_id = dv_4.id
-      #    AND dv_4.parent_id = dv_5.id
-      #    AND dv_1.id = 21
-      # ----------- BETTER!!!--------
-      # 	(SELECT dv_5.value
-      #      FROM generic_table_fact_values INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
-      #      generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4, generic_table_dimension_values dv_5
-      #      WHERE dv_1.parent_id = dv_2.id
-      #      AND dv_2.parent_id = dv_3.id
-      #      AND dv_3.parent_id = dv_4.id
-      #      AND dv_4.parent_id = dv_5.id
-      #      AND generic_table_dimensions.name = 'Branch'
-      #      AND generic_table_fact_values.group = FACT.f_group) AS state
       "SELECT
         (SELECT dv_5.value
           FROM generic_table_fact_values
             INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id
             INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id
             INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
-            generic_table_dimension_values dv_2,
-            generic_table_dimension_values dv_3,
-            generic_table_dimension_values dv_4,
-            generic_table_dimension_values dv_5
+            generic_table_dimension_values dv_2, generic_table_dimension_values dv_3,
+            generic_table_dimension_values dv_4, generic_table_dimension_values dv_5
           WHERE dv_1.parent_id = dv_2.id
             AND dv_2.parent_id = dv_3.id
             AND dv_3.parent_id = dv_4.id
@@ -83,10 +56,8 @@ private
             INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT_0
           WHERE FACT_0.a_name ='price' AND FACT_0.f_group = FACT.f_group)) AS turnover
       FROM (SELECT generic_table_dimensions.name AS d_name,
-          generic_table_aggregations.name AS a_name,
-          generic_table_dimension_values.value AS d_value,
-          generic_table_fact_values.group AS f_group,
-          generic_table_fact_values.value AS f_value
+          generic_table_aggregations.name AS a_name, generic_table_dimension_values.value AS d_value,
+          generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value
         FROM generic_table_fact_values
           INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id
           INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id
@@ -97,9 +68,7 @@ private
             INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id
             INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id
             INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
-            generic_table_dimension_values dv_2,
-            generic_table_dimension_values dv_3,
-            generic_table_dimension_values dv_4
+            generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4
           WHERE dv_1.parent_id = dv_2.id
             AND dv_2.parent_id = dv_3.id
             AND dv_3.parent_id = dv_4.id
@@ -119,11 +88,8 @@ private
       #   WHERE (star_branches.state = "Hamburg") AND (star_customers.customer_type = "privat")
       #   GROUP BY star_products.id
       #   LIMIT 20"
-      Star::Product.select(['star_products.name', 'sum(star_facts.number) AS number']).
-        joins(:facts => [:branch, :customer]).
-        where('star_branches.state = "Hamburg"').
-        where('star_customers.customer_type = "privat"').
-        group('star_products.id').limit(20).to_sql
+      Star::Product.select(['star_products.name', 'sum(star_facts.number) AS number']).joins(:facts => [:branch, :customer]).
+        where('star_branches.state = "Hamburg"').where('star_customers.customer_type = "privat"').group('star_products.id').limit(20).to_sql
     else
       "SELECT
         (SELECT dv_3.value AS name
@@ -131,11 +97,8 @@ private
             INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id
             INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id
             INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id,
-            generic_table_dimension_values dv_2,
-            generic_table_dimension_values dv_3,
-            generic_table_dimension_values dv_4,
-            generic_table_dimension_values dv_5 ,
-            generic_table_dimension_values dv_6
+            generic_table_dimension_values dv_2, generic_table_dimension_values dv_3, generic_table_dimension_values dv_4,
+            generic_table_dimension_values dv_5, generic_table_dimension_values dv_6
           WHERE dv_1.parent_id = dv_2.id
             AND dv_2.parent_id = dv_3.id
             AND dv_3.parent_id = dv_4.id
@@ -179,8 +142,6 @@ private
             AND generic_table_fact_values.group = FACT.f_group) = 'privat'
       LIMIT 20"
     end
-
-    sql
   end
 
   def scenario_3(model)
