@@ -46,18 +46,19 @@ class GenerateDataController < ApplicationController
     Star::Date.populate params[:generate][:date].to_i do |date|
       date.day = 1..30
       date.month = 1..12
-      date.quarter = 1..4
-      date.year = [2009, 2010, 2011]
+      date.quarter = ((date.month - 1) / 3) + 1
+      date.year = [2010, 2011]
     end
 
     # attr_accessible :branch_no, :city, :postcode, :state, :street_number
-    Star::Branch.populate params[:generate][:branch].to_i do |date|
-      date.branch_no = 1..100
-      date.city = Faker::Address.city
-      date.postcode = Faker::Address.postcode
-      date.state = ['Baden-Wuerttemberg','Bayern','Berlin','Brandenburg','Bremen','Hamburg','Hessen','Mecklenburg-Vorpommern',
-        'Niedersachsen','Nordrhein-Westfalen','Rheinland-Pfalz','Saarland','Sachsen','Sachsen-Anhalt','Schleswig-Holstein','Thueringen']
-      date.street_number = Faker::Address.street_name
+    Star::Branch.populate params[:generate][:branch].to_i do |branch|
+      branch.branch_no = 1..100
+      branch.postcode = Faker::Address.postcode
+      branch.state = ['Baden-Wuerttemberg','Bayern','Berlin','Brandenburg','Bremen','Hamburg',
+        'Hessen','Mecklenburg-Vorpommern','Niedersachsen','Nordrhein-Westfalen','Rheinland-Pfalz',
+        'Saarland','Sachsen','Sachsen-Anhalt','Schleswig-Holstein','Thueringen']
+      branch.city = ['Berlin','Bremen','Hamburg'].include?(branch.state) ? branch.state : Faker::Address.city
+      branch.street_number = "#{Faker::Address.street_name} #{rand(1..30)}"
     end
 
     product_ids =  Star::Product.select(:id).map(&:id)
@@ -84,17 +85,7 @@ class GenerateDataController < ApplicationController
     clear_tables
 
     # copy attributes from star-schema
-    copy_star_attrs
 
-    # copy fact data form star
-    copy_star_data
-
-    redirect_to generate_data_path
-  end
-
-private
-  ########################## Private Methods #############################
-  def copy_star_attrs
     # import product {:brand, :category, :contents, :name, :price, :product_no}
     product_id =    GenericTable::Dimension.create!(  :name => 'Product').id
     contents_id =   GenericTable::Aggregation.create!(:name => 'contents',                             :dimension_id => product_id).id
@@ -135,9 +126,7 @@ private
     GenericTable::DimensionValue.create!(:aggregation_id => aggr_value_id, :value => 'number')
     GenericTable::DimensionValue.create!(:aggregation_id => aggr_value_id, :value => 'discount')
     GenericTable::DimensionValue.create!(:aggregation_id => aggr_value_id, :value => 'commission')
-  end
 
-  def copy_star_data
     dimension_names = GenericTable::Dimension.all.map(&:name)
 
     Star::Fact.all.each do |fact|
@@ -149,8 +138,7 @@ private
         attrs << if dimension_names.any?{|name| name.downcase == header.sub('_id','') }
           star_dimension = fact.send(header.sub('_id','')).attributes
           star_dimension.delete('id')
-
-          dimension_id = Generic::Dimension.new(star_dimension.merge(:dimension_name => header.sub('_id','').capitalize)).create!
+          dimension_id = Generic::Dimension.new(star_dimension.merge(:dimension_name => header.sub('_id','').capitalize)).save!
 
           {:dimension_value_id => dimension_id[:last_id], :header => header}
         else
@@ -158,13 +146,18 @@ private
         end
       end
 
-      Generic::Fact.create!(attrs)
+      Generic::Fact.save!(attrs)
     end
+
+    redirect_to generate_data_path
   end
+
+private
+  ########################## Private Methods #############################
 
   def clear_tables
     tables = if params[:id] == 'star'
-      [Star::Fact, Star::Product, Star::Customer, Star::Date]
+      [Star::Fact, Star::Product, Star::Customer, Star::Branch, Star::Date]
     elsif params[:id] == 'generic'
       [GenericTable::Aggregation, GenericTable::Dimension,
         GenericTable::DimensionValue, GenericTable::FactValue]
@@ -178,4 +171,5 @@ private
       ActiveRecord::Base.connection.execute("ALTER TABLE %s AUTO_INCREMENT = %d" % [table.table_name, 1])
     end
   end
+
 end
