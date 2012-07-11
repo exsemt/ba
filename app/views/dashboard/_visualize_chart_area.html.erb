@@ -1,0 +1,39 @@
+<div>
+  <% @visualize_chart_area.each do |key, values| %>
+    <table style="display: none_1;" id="visualize_chart_area_<%= key %>" class="table table-bordered table-striped">
+      <caption><%= key %></caption>
+      <thead>
+        <tr>
+          <td></td>
+          <% group_by_size = values.group_by(&:table_size) %>
+          <% group_by_size.keys.each do |k| %>
+            <th scope="col"><%= k %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Star-Schema</th>
+          <% group_by_size.each do |k,value| %>
+            <td><%= value.select{|v| v.avg if v.name.include?('star_schema')}.first.try(:avg).try(:round,1) %></td>
+          <% end %>
+        </tr>
+        <tr>
+          <th scope="row">Generisches Modell</th>
+          <% group_by_size.each do |k,value| %>
+            <td><%= value.select{|v| v.avg if v.name.include?('generic_model')}.first.try(:avg).try(:round,1) %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+<br>
+
+<script type="text/javascript">
+  $(function(){
+    <% @visualize_chart_area.each do |k,v| %>
+      $('#visualize_chart_area_<%= k %>').visualize({type: 'area', width: '220px', height: '100px'});
+    <% end %>
+  });
+</script>
