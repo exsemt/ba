@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120526110708) do
+ActiveRecord::Schema.define(:version => 20120710203043) do
 
   create_table "generic_table_aggregations", :force => true do |t|
     t.string  "name"
@@ -19,11 +19,16 @@ ActiveRecord::Schema.define(:version => 20120526110708) do
     t.integer "parent_id"
   end
 
+  add_index "generic_table_aggregations", ["name"], :name => "index_name"
+
   create_table "generic_table_dimension_values", :force => true do |t|
     t.integer "aggregation_id"
     t.integer "parent_id"
     t.string  "value"
   end
+
+  add_index "generic_table_dimension_values", ["aggregation_id"], :name => "index_aggregation_id"
+  add_index "generic_table_dimension_values", ["parent_id"], :name => "index_parent_id"
 
   create_table "generic_table_dimensions", :force => true do |t|
     t.string "name"
@@ -35,12 +40,16 @@ ActiveRecord::Schema.define(:version => 20120526110708) do
     t.string  "value"
   end
 
+  add_index "generic_table_fact_values", ["dimension_value_id"], :name => "index_dimension_value_id"
+  add_index "generic_table_fact_values", ["group"], :name => "index_group"
+
   create_table "sql_requests", :force => true do |t|
     t.string   "server_id"
     t.datetime "start"
     t.datetime "finish"
     t.float    "sql_duration"
     t.string   "name"
+    t.string   "scenario"
     t.text     "sql_query"
     t.text     "payload"
     t.integer  "table_size"
