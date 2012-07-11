@@ -48,3 +48,7 @@
 # SQL Requests
 > rails generate scaffold SqlRequest server_id:string start:datetime finish:datetime sql_duration:float sql:text payload:text table_size:integer
 > rake db:migrate
+
+
+############################ index ############
+rails generate migration add_indexes
