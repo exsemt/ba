@@ -47,21 +47,17 @@ private
             AND dv_4.parent_id = dv_5.id
             AND generic_table_dimensions.name = 'Branch'
             AND generic_table_fact_values.group = FACT.f_group) AS state,
-        sum(FACT.f_value * (SELECT FACT_0.d_value FROM (SELECT generic_table_dimensions.name AS d_name,
-            generic_table_aggregations.name AS a_name, generic_table_dimension_values.value AS d_value,
-            generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value
+        sum(FACT.f_value * (SELECT generic_table_dimension_values.value AS d_value
           FROM generic_table_fact_values
             INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id
             INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id
-            INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT_0
-          WHERE FACT_0.a_name ='price' AND FACT_0.f_group = FACT.f_group)) AS turnover
-      FROM (SELECT generic_table_dimensions.name AS d_name,
-          generic_table_aggregations.name AS a_name, generic_table_dimension_values.value AS d_value,
+            INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id
+          WHERE generic_table_dimensions.name = 'Product'
+            AND generic_table_fact_values.group = FACT.f_group AND generic_table_aggregations.name = 'price')) AS turnover
+      FROM (SELECT generic_table_dimension_values.value AS d_value,
           generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value
         FROM generic_table_fact_values
-          INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id
-          INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id
-          INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT
+          INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id) FACT
       where FACT.d_value = 'number'
         AND (SELECT dv_4.value
           FROM generic_table_fact_values
@@ -81,18 +77,19 @@ private
 
   def scenario_2(model)
     if model == 'star_schema'
-      # "SELECT star_products.name, sum(star_facts.number) AS number FROM `star_products`
+      # "SELECT star_products.name AS name, sum(star_facts.number) AS number FROM `star_products`
       #   INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
       #   INNER JOIN `star_branches` ON `star_branches`.`id` = `star_facts`.`branch_id`
       #   INNER JOIN `star_customers` ON `star_customers`.`id` = `star_facts`.`customer_id`
       #   WHERE (star_branches.state = "Hamburg") AND (star_customers.customer_type = "privat")
-      #   GROUP BY star_products.id
+      #   GROUP BY name ORDER BY number DESC
       #   LIMIT 20"
-      Star::Product.select(['star_products.name', 'sum(star_facts.number) AS number']).joins(:facts => [:branch, :customer]).
-        where('star_branches.state = "Hamburg"').where('star_customers.customer_type = "privat"').group('star_products.id').limit(20).to_sql
+      Star::Product.select(['star_products.name AS name', 'sum(star_facts.number) AS number']).joins(:facts => [:branch, :customer]).
+        where('star_branches.state = "Hamburg"').where('star_customers.customer_type = "privat"').
+        group('name').order('number DESC').limit(20).to_sql
     else
       "SELECT
-        (SELECT dv_3.value AS name
+        (SELECT dv_3.value
           FROM generic_table_fact_values
             INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id
             INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id
@@ -106,16 +103,12 @@ private
             AND dv_5.parent_id = dv_6.id
             AND generic_table_dimensions.name = 'Product'
             AND generic_table_fact_values.group = FACT.f_group) AS name,
-        (FACT.f_value) AS number
-      FROM (SELECT generic_table_dimensions.name AS d_name,
-          generic_table_aggregations.name AS a_name,
-          generic_table_dimension_values.value AS d_value,
+        SUM(FACT.f_value) AS number
+      FROM (SELECT generic_table_dimension_values.value AS d_value,
           generic_table_fact_values.group AS f_group,
           generic_table_fact_values.value AS f_value
         FROM generic_table_fact_values
-          INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id
-          INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id
-          INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id) FACT
+          INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id) FACT
       where FACT.d_value = 'number'
         AND (SELECT dv_5.value
             FROM generic_table_fact_values
@@ -140,6 +133,8 @@ private
             AND dv_2.parent_id = dv_3.id
             AND generic_table_dimensions.name = 'Customer'
             AND generic_table_fact_values.group = FACT.f_group) = 'privat'
+      GROUP BY name
+      ORDER BY number DESC
       LIMIT 20"
     end
   end
@@ -149,11 +144,11 @@ private
       # "SELECT star_products.* FROM `star_products`
       #   INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
       #   INNER JOIN `star_dates` ON `star_dates`.`id` = `star_facts`.`date_id`
-      #   WHERE (star_dates.month = 12 AND star_dates.year = 2010)"
+      #   WHERE (star_dates.month = 12 AND star_dates.year = 2010) GROUP BY product_no"
       Star::Product.select('star_products.*').joins(:facts => :date).
-        where('star_dates.month = 12 AND star_dates.year = 2010').to_sql
+        where('star_dates.month = 12 AND star_dates.year = 2010').group('product_no').to_sql
     else
-      "SELECT dv_1.value AS price, dv_2.value AS product_no, dv_3.value AS name, dv_4.value AS category, dv_5.value AS brand, dv_6.value AS contents
+      "SELECT dv_2.value AS product_no, dv_3.value AS name, dv_4.value AS category, dv_5.value AS brand, dv_6.value AS contents, dv_1.value AS price
       FROM generic_table_fact_values
         INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id
         INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id
@@ -177,7 +172,8 @@ private
             AND dv_3.parent_id = dv_4.id
             AND generic_table_dimensions.name = 'Date'
             AND dv_4.value = 2010
-            AND dv_2.value = 12)"
+            AND dv_2.value = 12)
+      GROUP BY product_no"
     end
   end
 
