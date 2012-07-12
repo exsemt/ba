@@ -28,14 +28,14 @@ class GenerateDataController < ApplicationController
                       "Beck's", "Beck's Lemon",
                       'Duckstein', 'Duckstein Dunkel']
       product.price = [0.40, 0.50, 1.30, 1.50, 2.0, 0.6, 2.50]
-      product.product_no = 1..1000
+      product.product_no = product.id
     end
 
     # attr_accessible :city, :country, :customer_no, :name, :postcode, :street_number, :customer_type
     Star::Customer.populate params[:generate][:customer].to_i do |customer|
       customer.city = Faker::Address.city
       customer.country = ['Deutschland']#Faker::Address.country
-      customer.customer_no = 1..1000
+      customer.customer_no = customer.id
       customer.name = "#{Faker::Name.first_name} #{Faker::Name.last_name}"
       customer.postcode = Faker::Address.postcode
       customer.street_number = Faker::Address.street_name
@@ -52,7 +52,7 @@ class GenerateDataController < ApplicationController
 
     # attr_accessible :branch_no, :city, :postcode, :state, :street_number
     Star::Branch.populate params[:generate][:branch].to_i do |branch|
-      branch.branch_no = 1..100
+      branch.branch_no = branch.id
       branch.postcode = Faker::Address.postcode
       branch.state = ['Baden-Wuerttemberg','Bayern','Berlin','Brandenburg','Bremen','Hamburg',
         'Hessen','Mecklenburg-Vorpommern','Niedersachsen','Nordrhein-Westfalen','Rheinland-Pfalz',
