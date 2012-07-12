@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120710203043) do
 
   add_index "generic_table_dimension_values", ["aggregation_id"], :name => "index_aggregation_id"
   add_index "generic_table_dimension_values", ["parent_id"], :name => "index_parent_id"
+  add_index "generic_table_dimension_values", ["value"], :name => "index_dimension_value"
 
   create_table "generic_table_dimensions", :force => true do |t|
     t.string "name"
