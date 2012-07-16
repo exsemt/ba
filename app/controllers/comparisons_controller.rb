@@ -5,17 +5,17 @@ class ComparisonsController < ApplicationController
 
     if ['star_schema', 'generic_model'].include?(params['model']) && !params['commit'].blank?
       case params['commit']
-        when 'scenario_1'
-          @sql = scenario_1(params['model'])
-        when 'scenario_2'
-          @sql = scenario_2(params['model'])
-        when 'scenario_3'
-          @sql = scenario_3(params['model'])
+        when 'case_1'
+          @sql = case_1(params['model'])
+        when 'case_2'
+          @sql = case_2(params['model'])
+        when 'case_3'
+          @sql = case_3(params['model'])
         else
-          flash[:error] = "ERROR: unknown scenario!"
+          flash[:error] = "ERROR: unknown scenario case!"
       end
 
-      @db_response = ActiveRecord::Base.connection.select(@sql, :model => "#{params['model']}_#{params['commit']}", :scenario => params['commit']) unless @sql.blank?
+      @db_response = ActiveRecord::Base.connection.select(@sql, :model => "#{params['model']}_#{params['commit']}", :scenario_case => params['commit']) unless @sql.blank?
     end
 
     SUBSCRIBE['SQL'] = false
@@ -23,7 +23,7 @@ class ComparisonsController < ApplicationController
 
 private
 
-  def scenario_1(model)
+  def case_1(model)
     if model == 'star_schema'
       # "SELECT state, sum(star_facts.number * star_products.price) AS turnover FROM `star_branches`
       #   INNER JOIN `star_facts` ON `star_facts`.`branch_id` = `star_branches`.`id`
@@ -49,7 +49,8 @@ private
             AND generic_table_fact_values.group = FACT.f_group) AS state,
         sum(FACT.f_value * (SELECT generic_table_dimension_values.value AS d_value
           FROM generic_table_fact_values
-            INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id
+            INNER JOIN generic_table_dimension_values
+              ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id
             INNER JOIN generic_table_aggregations ON generic_table_aggregations.id = generic_table_dimension_values.aggregation_id
             INNER JOIN generic_table_dimensions ON generic_table_dimensions.id = generic_table_aggregations.dimension_id
           WHERE generic_table_dimensions.name = 'Product'
@@ -57,7 +58,8 @@ private
       FROM (SELECT generic_table_dimension_values.value AS d_value,
           generic_table_fact_values.group AS f_group, generic_table_fact_values.value AS f_value
         FROM generic_table_fact_values
-          INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id) FACT
+          INNER JOIN generic_table_dimension_values
+            ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id) FACT
       where FACT.d_value = 'number'
         AND (SELECT dv_4.value
           FROM generic_table_fact_values
@@ -75,7 +77,7 @@ private
     end
   end
 
-  def scenario_2(model)
+  def case_2(model)
     if model == 'star_schema'
       # "SELECT star_products.name AS name, sum(star_facts.number) AS number FROM `star_products`
       #   INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
@@ -108,7 +110,8 @@ private
           generic_table_fact_values.group AS f_group,
           generic_table_fact_values.value AS f_value
         FROM generic_table_fact_values
-          INNER JOIN generic_table_dimension_values ON generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id) FACT
+          INNER JOIN generic_table_dimension_values ON
+            generic_table_dimension_values.id = generic_table_fact_values.dimension_value_id) FACT
       where FACT.d_value = 'number'
         AND (SELECT dv_5.value
             FROM generic_table_fact_values
@@ -139,7 +142,7 @@ private
     end
   end
 
-  def scenario_3(model)
+  def case_3(model)
     if model == 'star_schema'
       # "SELECT star_products.* FROM `star_products`
       #   INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
@@ -148,7 +151,8 @@ private
       Star::Product.select('star_products.*').joins(:facts => :date).
         where('star_dates.month = 12 AND star_dates.year = 2010').group('product_no').to_sql
     else
-      "SELECT dv_2.value AS product_no, dv_3.value AS name, dv_4.value AS category, dv_5.value AS brand, dv_6.value AS contents, dv_1.value AS price
+      "SELECT dv_2.value AS product_no, dv_3.value AS name, dv_4.value AS category,
+        dv_5.value AS brand, dv_6.value AS contents, dv_1.value AS price
       FROM generic_table_fact_values
         INNER JOIN generic_table_dimension_values dv_1 ON dv_1.id = generic_table_fact_values.dimension_value_id
         INNER JOIN  generic_table_aggregations ON generic_table_aggregations.id = dv_1.aggregation_id

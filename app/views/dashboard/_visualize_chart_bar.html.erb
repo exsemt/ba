@@ -1,27 +1,27 @@
 <div>
   <% @visualize_chart_bar.each do |key, values| %>
-    <table style="display: none23;" id="visualize_chart_bar_<%= key %>">
+    <table style="display: none;" id="visualize_chart_bar_<%= key %>">
       <caption>Fact table with <%= key %> entries</caption>
       <thead>
         <tr>
           <td></td>
-          <th scope="col">scenario 1</th>
-          <th scope="col">scenario 2</th>
-          <th scope="col">scenario 3</th>
+          <th scope="col">use case 1</th>
+          <th scope="col">use case 2</th>
+          <th scope="col">use case 3</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">Star-Schema</th>
-          <td><%= values.select{|v| v.avg if v.name == 'star_schema_scenario_1'}.first.try(:avg).try(:round) %></td>
-          <td><%= values.select{|v| v.avg if v.name == 'star_schema_scenario_2'}.first.try(:avg).try(:round) %></td>
-          <td><%= values.select{|v| v.avg if v.name == 'star_schema_scenario_3'}.first.try(:avg).try(:round) %></td>
+          <td><%= values.select{|v| v.avg if v.name == 'star_schema_case_1'}.first.try(:avg).try(:round) %></td>
+          <td><%= values.select{|v| v.avg if v.name == 'star_schema_case_2'}.first.try(:avg).try(:round) %></td>
+          <td><%= values.select{|v| v.avg if v.name == 'star_schema_case_3'}.first.try(:avg).try(:round) %></td>
         </tr>
         <tr>
           <th scope="row">Generisches Modell</th>
-          <td><%= values.select{|v| v.avg if v.name == 'generic_model_scenario_1'}.first.try(:avg).try(:round) %></td>
-          <td><%= values.select{|v| v.avg if v.name == 'generic_model_scenario_2'}.first.try(:avg).try(:round) %></td>
-          <td><%= values.select{|v| v.avg if v.name == 'generic_model_scenario_3'}.first.try(:avg).try(:round) %></td>
+          <td><%= values.select{|v| v.avg if v.name == 'generic_model_case_1'}.first.try(:avg).try(:round) %></td>
+          <td><%= values.select{|v| v.avg if v.name == 'generic_model_case_2'}.first.try(:avg).try(:round) %></td>
+          <td><%= values.select{|v| v.avg if v.name == 'generic_model_case_3'}.first.try(:avg).try(:round) %></td>
         </tr>
       </tbody>
     </table>

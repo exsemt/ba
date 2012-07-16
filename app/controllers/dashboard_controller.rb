@@ -9,8 +9,8 @@ class DashboardController < ApplicationController
     @visualize_chart_bar = SqlRequest.select(['name', 'table_size', 'avg(sql_duration) AS avg', 'GROUP_CONCAT(sql_duration)']).
       group('name', 'table_size').order(:table_size).group_by(&:table_size)
 
-    @visualize_chart_area = SqlRequest.select(['name', 'scenario', 'table_size', 'avg(sql_duration) AS avg', 'GROUP_CONCAT(sql_duration)']).
-      group('name', 'scenario', 'table_size').order(:scenario, :table_size).group_by(&:scenario)
+    @visualize_chart_area = SqlRequest.select(['name', 'scenario_case', 'table_size', 'avg(sql_duration) AS avg', 'GROUP_CONCAT(sql_duration)']).
+      group('name', 'scenario_case', 'table_size').order(:scenario_case, :table_size).group_by(&:scenario_case)
   end
 
 end

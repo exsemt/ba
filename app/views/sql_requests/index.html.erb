@@ -10,12 +10,13 @@ Last 100 lines
     <tr>
       <th>id</th>
       <th>name</th>
-      <th>server_id</th>
-      <th>start</th>
-      <th>finish</th>
+      <th>scenario_case</th>
+      <!--<th>server_id</th>-->
+      <!--<th>start</th>-->
+      <!--<th>finish</th>-->
       <th>sql_duration</th>
       <th>sql_query</th>
-      <th>payload</th>
+      <!--<th>payload</th>-->
       <th>table_size</th>
       <th>Action</th>
     </tr>
@@ -24,12 +25,13 @@ Last 100 lines
     <tr>
       <td><%= sql_request.id %></td>
       <td><%= sql_request.name %></td>
-      <td><%= sql_request.server_id %></td>
-      <td><%= sql_request.start %></td>
-      <td><%= sql_request.finish %></td>
+      <td><%= sql_request.scenario_case %></td>
+      <!--<td><%#= sql_request.server_id %></td>-->
+      <!--<td><%#= sql_request.start %></td>-->
+      <!--<td><%#= sql_request.finish %></td>-->
       <td><%= sql_request.sql_duration %></td>
       <td><%= sql_request.sql_query %></td>
-      <td><%= sql_request.payload[0..9] %> ...</td>
+      <!--<td><%#= sql_request.payload[0..9] %> ...</td>-->
       <td><%= sql_request.table_size %></td>
       <td>
         <%= link_to '', sql_request, :class => 'icon-arrow-right', :title => 'Show' %>

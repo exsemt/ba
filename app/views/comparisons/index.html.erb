@@ -1,3 +1,5 @@
+<%= content_for :title, 'Use Cases' %>
+
 <%= render '/comparisons/overview' %>
 
 <%= render('/layouts/sql_query') unless @sql.blank? %>
@@ -20,11 +22,11 @@
 <% end %>
 
 <div class="well">
-  Szenario 1: Erstellen eines Berichts, in dem die deutsche Bundesländer ausgehend von Umsatz im Jahr 2010 absteigend nach dem Umsatz sortiert werden.
+  Fall 1: Erstellen Sie ein Bericht, in dem die deutsche Bundesländer ausgehend von Umsatz im Jahr 2010 absteigend nach dem Umsatz sortiert werden. Der Bericht soll Namen der Bundesländer und ihren Umsatz enthalten.
 </div>
 <div class="well">
-  Szenario 2: Zeigen 20 meistverkaufte Produkte, die in Filialen in Hamburg an Privatkunden verkauft wurden, Bericht muss Produktname und Anzahl enthalten.
+  Fall 2: Zeigen sie 20 meistverkaufte Produkte, die in Filialen in Hamburg an Privatkunden verkauft wurden. Der Bericht soll Produktnamen und deren Anzahl absteigend nach der Anzahl sortiert enthalten.
 </div>
 <div class="well">
-  Szenario 3: Erstellen Sie ein Bericht über die Produkte, die im Dezember 2010 in Deutschland verkauft wurden.
+  Fall 3: Erstellen Sie ein Bericht über die Produkte, die im Dezember 2010 in Deutschland verkauft wurden. Der Bericht soll alle Produktdaten enthalten.
 </div>

@@ -1,6 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b>Name:</b>
+  <%= @sql_request.name %>
+</p>
+
+<p>
+  <b>Scenario Case:</b>
+  <%= @sql_request.scenario_case %>
+</p>
+
+<p>
   <b>Server:</b>
   <%= @sql_request.server_id %>
 </p>
@@ -18,11 +28,6 @@
 <p>
   <b>Sql duration:</b>
   <%= @sql_request.sql_duration %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @sql_request.name %>
 </p>
 
 <p>
