@@ -25,14 +25,14 @@ private
 
   def case_1(model)
     if model == 'star_schema'
-      # "SELECT state, sum(star_facts.number * star_products.price) AS turnover FROM `star_branches`
-      #   INNER JOIN `star_facts` ON `star_facts`.`branch_id` = `star_branches`.`id`
-      #   INNER JOIN `star_dates` ON `star_dates`.`id` = `star_facts`.`date_id`
-      #   INNER JOIN `star_products` ON `star_products`.`id` = `star_facts`.`product_id`
-      #   WHERE (star_dates.year = 2010) GROUP BY state ORDER BY turnover DESC"
-      Star::Branch.select([:state, 'sum(star_facts.number * star_products.price) AS turnover']).
-        joins(:facts => [:date, :product]).where('star_dates.year = 2010').order('turnover DESC').group(:state).to_sql
-    else
+      "SELECT state, sum(star_facts.number * star_products.price) AS turnover
+      FROM `star_branches`
+        INNER JOIN `star_facts` ON `star_facts`.`branch_id` = `star_branches`.`id`
+        INNER JOIN `star_dates` ON `star_dates`.`id` = `star_facts`.`date_id`
+        INNER JOIN `star_products` ON `star_products`.`id` = `star_facts`.`product_id`
+      WHERE (star_dates.year = 2010)
+      GROUP BY state ORDER BY turnover DESC"
+    elsif model == 'generic_model'
       "SELECT
         (SELECT dv_5.value
           FROM generic_table_fact_values
@@ -74,22 +74,20 @@ private
             AND generic_table_fact_values.group = FACT.f_group) = 2010
       GROUP BY state
       ORDER BY turnover DESC"
+    else
+      ''
     end
   end
 
   def case_2(model)
     if model == 'star_schema'
-      # "SELECT star_products.name AS name, sum(star_facts.number) AS number FROM `star_products`
-      #   INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
-      #   INNER JOIN `star_branches` ON `star_branches`.`id` = `star_facts`.`branch_id`
-      #   INNER JOIN `star_customers` ON `star_customers`.`id` = `star_facts`.`customer_id`
-      #   WHERE (star_branches.state = "Hamburg") AND (star_customers.customer_type = "privat")
-      #   GROUP BY name ORDER BY number DESC
-      #   LIMIT 20"
-      Star::Product.select(['star_products.name AS name', 'sum(star_facts.number) AS number']).joins(:facts => [:branch, :customer]).
-        where('star_branches.state = "Hamburg"').where('star_customers.customer_type = "privat"').
-        group('name').order('number DESC').limit(20).to_sql
-    else
+      "SELECT star_products.name AS name, sum(star_facts.number) AS number
+      FROM `star_products` INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
+        INNER JOIN `star_branches` ON `star_branches`.`id` = `star_facts`.`branch_id`
+        INNER JOIN `star_customers` ON `star_customers`.`id` = `star_facts`.`customer_id`
+      WHERE (star_branches.state = 'Hamburg') AND (star_customers.customer_type = 'privat')
+      GROUP BY name ORDER BY number DESC LIMIT 20"
+    elsif model == 'generic_model'
       "SELECT
         (SELECT dv_3.value
           FROM generic_table_fact_values
@@ -139,18 +137,20 @@ private
       GROUP BY name
       ORDER BY number DESC
       LIMIT 20"
+    else
+      ''
     end
   end
 
   def case_3(model)
     if model == 'star_schema'
-      # "SELECT star_products.* FROM `star_products`
-      #   INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
-      #   INNER JOIN `star_dates` ON `star_dates`.`id` = `star_facts`.`date_id`
-      #   WHERE (star_dates.month = 12 AND star_dates.year = 2010) GROUP BY product_no"
-      Star::Product.select('star_products.*').joins(:facts => :date).
-        where('star_dates.month = 12 AND star_dates.year = 2010').group('product_no').to_sql
-    else
+      "SELECT star_products.*
+      FROM `star_products`
+        INNER JOIN `star_facts` ON `star_facts`.`product_id` = `star_products`.`id`
+        INNER JOIN `star_dates` ON `star_dates`.`id` = `star_facts`.`date_id`
+      WHERE (star_dates.month = 12 AND star_dates.year = 2010)
+      GROUP BY product_no"
+    elsif model == 'generic_model'
       "SELECT dv_2.value AS product_no, dv_3.value AS name, dv_4.value AS category,
         dv_5.value AS brand, dv_6.value AS contents, dv_1.value AS price
       FROM generic_table_fact_values
@@ -178,6 +178,8 @@ private
             AND dv_4.value = 2010
             AND dv_2.value = 12)
       GROUP BY product_no"
+    else
+      ''
     end
   end
 
