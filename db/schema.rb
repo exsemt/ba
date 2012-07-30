@@ -50,12 +50,12 @@ ActiveRecord::Schema.define(:version => 20120710203043) do
     t.datetime "finish"
     t.float    "sql_duration"
     t.string   "name"
-    t.string   "scenario"
+    t.string   "scenario_case"
     t.text     "sql_query"
     t.text     "payload"
     t.integer  "table_size"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "star_branches", :force => true do |t|
