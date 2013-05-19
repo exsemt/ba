@@ -3,5 +3,5 @@ Bachelorarbeit: Vergleich des Star-Schemas und des generischen Modells mit Hilfe
 
 You need:
 - MySQL
-- Ruby 1.9.3
-- Ruby on Rails 3.2.3
+- Ruby 2.0.0
+- Ruby on Rails 3.2.13
